@@ -10,12 +10,33 @@ import signUpImage from './images/signup.svg';
 function App() {
 
   const [posts, setPosts] = useState([]);
-  const [isLoggedin, setIsLoggedin] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  //
+  useEffect(() => {
+    const fn = auth.onAuthStateChanged(authUser => {
+      if(authUser){
+        console.log(authUser);
+        setUser(authUser);
+          if(!authUser.userName){
+            return authUser.updateProfile({
+              userName: userName
+            });
+          }
+      }
+      else{
+        setUser(null);
+      }
+    })
+
+    return () => fn;
+
+  },[user,userName]);
 
   //populate posts component
   useEffect(() => {
@@ -51,19 +72,30 @@ function App() {
   }));
 
 
-  const HandleSignUp = () => {
-    
+  const HandleSignUp = (e) => {
+    e.preventDefault();
+    auth.createUserWithEmailAndPassword(email, password).then(authUser => {
+      return authUser.user.updateProfile({
+        userName: userName
+      })
+    }).catch(err => {
+      alert(err);
+      // todo: popup error message
+    })
+    setOpen(false);
   }
 
   const classes = useStyles();
   
+  console.log(user);
+
   return (
     <div className="App">
       <nav>
         <img src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'/>
         <div className="app__navLeft">
           
-          {isLoggedin ? (
+          {user ? (
             <span>
             <button className='app__btn bg_blue'><i class="fas fa-plus"></i> New Post</button>          
             <button variant='contained' className='app__btn'>Logout</button>
@@ -76,6 +108,7 @@ function App() {
           )
           }
 
+          {/* signup Modal */}
           <Modal open={open}
           onClose={() => setOpen(false)}>
             <div style={modalStyle} className={classes.paper}>
@@ -85,14 +118,14 @@ function App() {
                 </div>
                 <div className='app__modalLeft'>
                   <h3>Sign Up</h3>
-                  <form className='app__form'>
+                  <form className='app__form' onSubmit={HandleSignUp}>
                     <label>Username</label>
-                    <input type='text'></input>
+                    <input type='text' onChange={(e) => setUserName(e.target.value)}></input>
                     <label>Email</label>
-                    <input type='text'></input>
+                    <input type='email' onChange={(e) => setEmail(e.target.value)}></input>
                     <label>Password</label>
-                    <input type='password'></input>
-                    <button type='submit'>Submit</button>
+                    <input type='password' onChange={(e) => setPassword(e.target.value)}></input>
+                    <button>Submit</button>
                   </form>
                 </div></div>
             </div>  
