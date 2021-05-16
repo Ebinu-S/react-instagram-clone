@@ -1,0 +1,109 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid lightgrey;
+    width: 100vw;
+    background-color: #fafafa;
+}
+
+nav img {
+    object-fit: contain;
+}
+  
+.app__btn{
+    border:0;
+    padding: 0.8rem;
+    font: inherit;
+    margin-right: 1rem;
+    background-color: transparent;
+    border-radius: 5px;
+    transition: .3s ;
+}
+
+.app__btn:hover{
+    background-color:#ebebeb;
+}
+
+.bg_blue{
+    background-color: #3d84b8;
+    color: #f4f9f9;
+}
+.bg_blue:hover{
+    background-color: #3172a0 !important;
+    color:#f4f9f9;
+}
+
+.container{
+    background-color: #f4f3f3;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post{
+    max-width: 650px;
+    background-color: #fafafa;
+    border: 1px solid lightgrey;
+    margin: 1rem 0;
+    border-radius: 5px;
+}
+
+.post__header{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.post__header p{
+    margin-left: 10px;
+}
+
+.post__img{
+    width: 100%;
+    max-height: 1000px;
+    object-fit: contain;
+}
+
+.post__caption{
+    padding: 10px;
+}
+
+.post__comments{
+    padding: 10px;
+}
+
+.post__commentform{
+    padding: 10px;
+    display: flex;
+}
+
+.post__commentform input{
+    border: 0;
+    flex: 1;
+    font: inherit;
+    padding: 4px;
+    background-color: inherit;
+    border-bottom: 1px solid lightgray;
+}
+
+.post__commentform input:focus{
+    outline: 1px solid lightgrey;
+    border-bottom: 0;
+}
+
+.post__commentform button{
+    border:0;
+    background-color: transparent;
+    color: #3d84b8;
+    padding: 10px;
+    transition: .3s ease;
+    border-radius: 4px;
+}
+
+.post__commentform button:hover{
+    background-color: #3d84b8;
+    color: #f4f9f9;
+}
