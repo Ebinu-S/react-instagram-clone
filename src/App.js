@@ -5,6 +5,7 @@ import {db, auth} from './Components/Firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import signUpImage from './images/signup.svg';
+import LoginImage from './images/login.svg';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+  const [signinOpen, setSigninOpen] = useState(false);
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -72,8 +74,9 @@ function App() {
   }));
 
 
-  const HandleSignUp = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
+    
     auth.createUserWithEmailAndPassword(email, password).then(authUser => {
       return authUser.user.updateProfile({
         userName: userName
@@ -85,6 +88,16 @@ function App() {
     setOpen(false);
   }
 
+  const handleSignIn = (e) => {
+    e.preventDefault();
+
+    auth.signInWithEmailAndPassword(email,password).catch(error => {
+      alert(error);
+    })
+
+    setSigninOpen(false);
+  }
+
   const classes = useStyles();
   
   console.log(user);
@@ -94,15 +107,15 @@ function App() {
       <nav>
         <img src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'/>
         <div className="app__navLeft">
-          
+ 
           {user ? (
             <span>
             <button className='app__btn bg_blue'><i class="fas fa-plus"></i> New Post</button>          
-            <button variant='contained' className='app__btn'>Logout</button>
+            <button variant='contained' className='app__btn' onClick={() => auth.signOut()}>Logout</button>
             </span>
           ):(
             <span>
-            <button className='app__btn' >Sign In</button>
+            <button className='app__btn' onClick={() => setSigninOpen(true)}>Sign In</button>
             <button className='app__btn bg_blue' onClick={() => setOpen(true)}>Sign Up</button>
             </span>
           )
@@ -118,7 +131,7 @@ function App() {
                 </div>
                 <div className='app__modalLeft'>
                   <h3>Sign Up</h3>
-                  <form className='app__form' onSubmit={HandleSignUp}>
+                  <form className='app__form' onSubmit={handleSignUp}>
                     <label>Username</label>
                     <input type='text' onChange={(e) => setUserName(e.target.value)}></input>
                     <label>Email</label>
@@ -130,6 +143,28 @@ function App() {
                 </div></div>
             </div>  
           </Modal> 
+
+        {/* sign in modal */}
+          <Modal
+          open={signinOpen}
+          onClose={() => setSigninOpen(false)}>
+            <div style={modalStyle} className={classes.paper}>
+              <div className="app_modal">
+                <div className='app__modalRight'>
+                  <img src={LoginImage} className='app_loginimg'/>
+                </div>
+                <div className='app__modalLeft'>
+                  <h3>Sign In</h3>
+                  <form className='app__form' onSubmit={handleSignIn}>
+                    <label>Email</label>
+                    <input type='email' onChange={(e) => setEmail(e.target.value)}></input>
+                    <label>Password</label>
+                    <input type='password' onChange={(e) => setPassword(e.target.value)}></input>
+                    <button>Submit</button>
+                  </form>
+                </div></div>
+            </div>  
+          </Modal>
 
         </div>  
       </nav>
