@@ -80,6 +80,8 @@ nav img {
     width: 100vw;
     display: flex;
     flex-direction: column;
+    min-height: 90vh;
+    justify-content: center;
     align-items: center;
 }
 

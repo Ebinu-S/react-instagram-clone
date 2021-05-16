@@ -100,7 +100,6 @@ function App() {
 
   const classes = useStyles();
   
-  console.log(user);
 
   return (
     <div className="App">
@@ -171,9 +170,12 @@ function App() {
 
       <div className="container">
 
-          {posts.map(({id, post}) =>{
+          {user? (posts.map(({id, post}) =>{
             return <Post key={id} id={id} caption={post.caption} userName={post.userName} imgUrl={post.imgUrl} />
-          } )}
+          } ) ):(
+            <h1>Please login or Sign up to browse feed.</h1>
+          )
+        }
 
       </div>
     </div> 
