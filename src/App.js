@@ -1,8 +1,29 @@
 import {useState, useEffect} from 'react';
 import Post from './Components/Post.js';
 import './app.css';
+import {db, auth} from './Components/Firebase';
 
 function App() {
+  
+  const [posts, setPosts] = useState([]);
+  const [isLoggedin, setIsLoggedin] = useState(false);
+  const [user, setUser] = useState('');
+
+  //populate posts component
+  useEffect(() => {
+    db.collection('Posts').onSnapshot(snapshot => {
+      setPosts(
+        snapshot.docs.map(doc => ({
+          id: doc.id,
+          post: doc.data()
+        }))
+      )
+    })
+  }, []);
+
+  const HandleSignIn = () => {
+
+  }
   
   return (
     <div className="App">
@@ -11,7 +32,7 @@ function App() {
         <div className="app__navLeft">
           
           {/* show only if user not logged in */}
-          <button className='app__btn'>Sign In</button>
+          <button className='app__btn' onClick={HandleSignIn}>Sign In</button>
           <button className='app__btn bg_blue'>Sign Up</button>
           
           {/* show if logged in */}
@@ -21,10 +42,11 @@ function App() {
       </nav>
 
       <div className="container">
-        <Post imageUrl={'https://images.unsplash.com/photo-1621109493185-3f00a717c61b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'}/>
-        <Post 
-        imageUrl={'https://images.unsplash.com/photo-1621090162436-78df0d317942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1900&q=80'}
-        />
+
+          {posts.map(({id, post}) =>{
+            return <Post key={id} id={id} caption={post.caption} userName={post.userName} imgUrl={post.imgUrl} />
+          } )}
+
       </div>
     </div> 
   );

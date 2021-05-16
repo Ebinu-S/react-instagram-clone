@@ -1,19 +1,19 @@
 import { Avatar } from "@material-ui/core"
 
-const Post = ({imageUrl}) => {
+const Post = ({imgUrl, id, caption, userName}) => {
     return ( 
     <div className="post"> 
         <div className="post__header">
             
             <Avatar src="static/images/avatar/1.jpg" 
-            alt="Ebinu Suneer" 
+            alt={userName} 
             className="post__avatar" />
-            <p><strong>Ebinu Suneer</strong></p>
+            <p><strong>{userName}</strong></p>
 
         </div>        
-        <img className="post__img" src={imageUrl}/>
+        <img className="post__img" src={imgUrl}/>
         <div className="post__caption">
-            <p><strong>Ebinu Suneer</strong>&nbsp;&nbsp;The greatest glory in living lies not in never falling, but in rising every time we fall.</p>
+            <p><strong>{userName}</strong>&nbsp;&nbsp;{caption}</p>
         </div>
 
         <div className="post__comments">

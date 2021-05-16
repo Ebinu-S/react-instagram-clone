@@ -43,7 +43,7 @@ nav img {
 }
 
 .post{
-    max-width: 650px;
+    width: 650px;
     background-color: #fafafa;
     border: 1px solid lightgrey;
     margin: 1rem 0;
@@ -64,7 +64,7 @@ nav img {
 .post__img{
     width: 100%;
     max-height: 1000px;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .post__caption{
