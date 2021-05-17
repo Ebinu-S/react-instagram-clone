@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import signUpImage from './images/signup.svg';
 import LoginImage from './images/login.svg';
+import Upload from './Components/Upload.js';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
   const [signinOpen, setSigninOpen] = useState(false);
+  const [newpostOpen,setNewpostOpen] = useState(false);
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,7 +44,7 @@ function App() {
 
   //populate posts component
   useEffect(() => {
-    db.collection('Posts').onSnapshot(snapshot => {
+    db.collection('Posts').orderBy('timestamp','desc').onSnapshot(snapshot => {
       setPosts(
         snapshot.docs.map(doc => ({
           id: doc.id,
@@ -99,8 +101,8 @@ function App() {
   }
 
   const classes = useStyles();
-  
 
+  console.log(posts);
   return (
     <div className="App">
       <nav>
@@ -109,7 +111,7 @@ function App() {
  
           {user ? (
             <span>
-            <button className='app__btn bg_blue'><i class="fas fa-plus"></i> New Post</button>          
+            <button className='app__btn bg_blue' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i> New Post</button>     
             <button variant='contained' className='app__btn' onClick={() => auth.signOut()}>Logout</button>
             </span>
           ):(
@@ -165,13 +167,20 @@ function App() {
             </div>  
           </Modal>
 
+          {/* newpost modal  */}
+          <Modal
+          open={newpostOpen}
+          onClose={() => setNewpostOpen(false)}>
+            <Upload userName={userName} modalStyle={modalStyle} paper={classes.paper}/>
+          </Modal>
+
         </div>  
       </nav>
 
       <div className="container">
 
           {user? (posts.map(({id, post}) =>{
-            return <Post key={id} id={id} caption={post.caption} userName={post.userName} imgUrl={post.imgUrl} />
+            return <Post key={id} id={id} caption={post.caption} userName={post.username} imgUrl={post.imageUrl} />
           } ) ):(
             <h1>Please login or Sign up to browse feed.</h1>
           )
