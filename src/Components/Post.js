@@ -10,6 +10,8 @@ const Post = ({imgUrl, id, caption, userName}) => {
             className="post__avatar" />
             <p><strong>{userName}</strong></p>
 
+            {/* add a menu for deleting post if you are the user?  */}
+
         </div>        
         <img className="post__img" src={imgUrl}/>
         <div className="post__caption">

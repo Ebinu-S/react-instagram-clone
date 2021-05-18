@@ -171,6 +171,8 @@ nav img {
 
 .upload__image{
     object-fit: contain;
-    width: 100px;
 }
 
+.upload__progress{
+    transition: .3s ease-in-out;
+}

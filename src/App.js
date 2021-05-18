@@ -19,7 +19,7 @@ function App() {
   const [newpostOpen,setNewpostOpen] = useState(false);
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(''); 
 
   //
   useEffect(() => {
@@ -27,10 +27,14 @@ function App() {
       if(authUser){
         console.log(authUser);
         setUser(authUser);
-          if(!authUser.userName){
-            return authUser.updateProfile({
-              userName: userName
+          if(authUser.displayName){
+            // add 
+            console.log(authUser.displayName,'yes');
+          }else{
+             authUser.updateProfile({
+              displayName: userName
             });
+            console.log(authUser.displayName,'no');
           }
       }
       else{
@@ -38,10 +42,11 @@ function App() {
       }
     })
 
-    return () => fn;
+    return () => fn();
 
   },[user,userName]);
 
+  user && console.log(user,user.displayName);
   //populate posts component
   useEffect(() => {
     db.collection('Posts').orderBy('timestamp','desc').onSnapshot(snapshot => {
@@ -78,15 +83,16 @@ function App() {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    
+    console.log(userName, "signup", password);
     auth.createUserWithEmailAndPassword(email, password).then(authUser => {
-      return authUser.user.updateProfile({
-        userName: userName
-      })
+      authUser.user.updateProfile({
+        displayName: 'userName aan'
+      });
     }).catch(err => {
       alert(err);
       // todo: popup error message
     })
+    console.log(userName, user,"signup_end", password);
     setOpen(false);
   }
 
@@ -94,6 +100,7 @@ function App() {
     e.preventDefault();
 
     auth.signInWithEmailAndPassword(email,password).catch(error => {
+      //todo add error message handler
       alert(error);
     })
 
@@ -101,8 +108,6 @@ function App() {
   }
 
   const classes = useStyles();
-
-  console.log(posts);
   return (
     <div className="App">
       <nav>
@@ -171,7 +176,7 @@ function App() {
           <Modal
           open={newpostOpen}
           onClose={() => setNewpostOpen(false)}>
-            <Upload userName={userName} modalStyle={modalStyle} paper={classes.paper}/>
+            {user && <Upload userName={user.displayName} modalStyle={modalStyle} paper={classes.paper} setNewpostOpen={setNewpostOpen}/>}
           </Modal>
 
         </div>  
