@@ -118,6 +118,10 @@ nav img {
     padding: 10px;
 }
 
+.post__comments strong{
+    margin-right : 10px;
+}
+
 .post__commentform{
     padding: 10px;
     display: flex;

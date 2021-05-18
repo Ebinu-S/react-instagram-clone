@@ -1,6 +1,43 @@
-import { Avatar } from "@material-ui/core"
+import { useState, useEffect} from 'react';
+import { Avatar } from "@material-ui/core";
+import { db} from './Firebase'; 
+import firebase from 'firebase';
 
-const Post = ({imgUrl, id, caption, userName}) => {
+
+const Post = ({imgUrl, id, caption, userName, user}) => {
+
+    const [comment,setComment] = useState('');
+    const [comments,setComments] = useState([]);
+
+    useEffect(() => {
+        let unsubscribe;
+        if(id){
+            unsubscribe = db
+            .collection("Posts")
+            .doc(id)
+            .collection("Comments")
+            .orderBy("timestamp","asc")
+            .onSnapshot((snapshot)=>{
+                setComments(snapshot.docs.map((doc)=>doc.data()))
+            })  
+        }
+        return () => {
+            unsubscribe();
+        }
+    }, [id]);
+
+    const handleComment = (e) => {
+        e.preventDefault();
+
+        db.collection('Posts').doc(id).collection('Comments').add({
+            text: comment,
+            displayName : user.displayName,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        
+        setComment('');
+    };
+
     return ( 
     <div className="post"> 
         <div className="post__header">
@@ -9,7 +46,6 @@ const Post = ({imgUrl, id, caption, userName}) => {
             alt={userName} 
             className="post__avatar" />
             <p><strong>{userName}</strong></p>
-
             {/* add a menu for deleting post if you are the user?  */}
 
         </div>        
@@ -19,13 +55,13 @@ const Post = ({imgUrl, id, caption, userName}) => {
         </div>
 
         <div className="post__comments">
-            {/* these are dummy comments  */}
-            <p><strong>Jabiq12</strong>&nbsp; Main Adipoli</p>
-            <p><strong>35iq12</strong>&nbsp; Ore Poli</p>
-            <p><strong>ebs12</strong>&nbsp; Such a beautiful picture.</p>
+            { comments.map(cmt => (
+                <p><strong>{cmt.displayName}</strong>{cmt.text}</p>
+             ) )}
         </div>
-        <form className="post__commentform">
-            <input type='text' placeholder='Enter your comment here..'></input>
+
+        <form className="post__commentform" onSubmit={handleComment}>
+            <input type='text' placeholder='Enter your comment here..' value={comment} onChange={e => setComment(e.target.value)}></input>
             <button>Post</button>
         </form>
     </div>
