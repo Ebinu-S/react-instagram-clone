@@ -26,20 +26,50 @@
     justify-content: center;
     align-items: center;
     border-top: 1px solid rgb(221, 221, 221);
+    padding: 0 3rem ;
 }
+.profile__obj{
+    cursor: pointer;
+    margin: 10px;
+    background-color: black;    
+    width: 350px;
+    height: 400px;
+}
+
 
 .profile__image{
     width: 350px;
     height: 400px;
     object-fit: cover;
-    padding: 10px;
+    opacity: 1;
+    transition: .2s ease-in;
+    /* padding: 10px; */
+}
+
+.profile__image:hover{
+    opacity: 0.7;
 }
 
 .profile__details h2{
     font-family: 'Oleo Script Swash Caps', cursive;
 }
 
-@media (max-width: 690px) {
+@media (max-width: 900px){
+    .profile__posts{
+        padding: 0 2rem;
+    }
+    .profile__image{
+        width: 233px;
+        height: 266px;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 840px) {
+
+    .profile__posts{
+        padding: 0 0.2rem;
+    }
     
     .profile__image{
         width: 175px;

@@ -1,8 +1,6 @@
-import {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import {Avatar} from '@material-ui/core';
 import './profile.css';
-import {db} from './Firebase';
 
 const Profile = ({posts}) => {
     const {uname } = useParams();
@@ -25,7 +23,9 @@ const Profile = ({posts}) => {
         {/* user userName/ post count /settings icon */}
         <div className="profile__posts">
             {UserPosts.map(obj => (
-                <img src={obj.post.imageUrl} className="profile__image"/>
+                <Link  className='profile__obj'>
+                    <img src={obj.post.imageUrl} className="profile__image"/>
+                </Link>
             ))}
         </div>
  
