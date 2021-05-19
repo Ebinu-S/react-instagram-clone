@@ -7,6 +7,7 @@ import Modal from '@material-ui/core/Modal';
 import signUpImage from './images/signup.svg';
 import LoginImage from './images/login.svg';
 import Upload from './Components/Upload.js';
+import Posts from './Components/Posts.js';
 
 
 function App() {
@@ -122,7 +123,7 @@ function App() {
             </span>
           ):(
             <span>
-            <button className='app__btn' onClick={() => setSigninOpen(true)}>Sign In</button>
+            <button className='app__btn' onClick={() => setSigninOpen(true)}>Log In</button>
             <button className='app__btn bg_blue' onClick={() => setOpen(true)}>Sign Up</button>
             </span>
           )
@@ -181,18 +182,16 @@ function App() {
             {user && <Upload userName={user.displayName} modalStyle={modalStyle} paper={classes.paper} setNewpostOpen={setNewpostOpen}/>}
           </Modal>
 
+      <Posts posts={posts} user={user} />
 
-
-      <div className="container">
-
+      {/* <div className="posts__container">
           {user? (posts.map(({id, post}) =>{
             return <Post key={id} id={id} caption={post.caption} userName={post.username} imgUrl={post.imageUrl} user={user} />
           } ) ):(
             <h1>Please login or Sign up to browse feed.</h1>
           )
         }
-
-      </div>
+      </div> */}
     </div> 
   );
 }
