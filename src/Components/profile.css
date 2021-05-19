@@ -8,22 +8,42 @@
 .profile__header{
     display: flex;
     flex-direction: row;
-    height: 25vh;
+    height: 20vh;
     justify-content: center;
     align-items: center;
 }
 
 .profile__avtar{
-    width: 250px;
-    height: 250px;
+    width: 80px !important;
+    height: 80px !important;
+    margin-right: 2rem;
 }
 
 .profile__posts{
-    background-color: rebeccapurple;
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgb(221, 221, 221);
 }
 
 .profile__image{
-    width: 400px;
-    object-fit: contain;
+    width: 350px;
+    height: 400px;
+    object-fit: cover;
+    padding: 10px;
+}
+
+.profile__details h2{
+    font-family: 'Oleo Script Swash Caps', cursive;
+}
+
+@media (max-width: 690px) {
+    
+    .profile__image{
+        width: 175px;
+        height: 200px;
+        object-fit: cover;
+    }
 }

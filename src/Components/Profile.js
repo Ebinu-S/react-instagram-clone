@@ -9,7 +9,6 @@ const Profile = ({posts}) => {
     
     const UserPosts = posts.filter(t => t.post.username === uname);
 
-    console.log(posts, UserPosts);
     return ( 
     <div className="profile__container">
         {/* header
@@ -20,6 +19,7 @@ const Profile = ({posts}) => {
              <Avatar alt={uname} src="static/images/avatar/1.jpg" className="profile__avtar"/>
              <div className="profile__details">
                  <h2>{uname}</h2>
+                 <p>This the Bio of this Profile.</p>
              </div>
          </div>
         {/* user userName/ post count /settings icon */}

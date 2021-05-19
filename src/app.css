@@ -27,13 +27,13 @@ a{
 }
 
 .app__btn:hover{
-    background-color:#ebebeb;
+    background-color: #3d84b8;
+    color: #f4f9f9 !important;
 }
 
-.bg_blue{
+/* .bg_blue{
     background-color: #3d84b8;
-    color: #f4f9f9;
-}
+} */
 .bg_blue:hover{
     background-color: #3172a0 !important;
     color:#f4f9f9;

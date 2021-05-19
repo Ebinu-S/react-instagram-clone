@@ -52,12 +52,12 @@ const Post = ({imgUrl, id, caption, userName, user}) => {
         </div>        
         <img className="post__img" src={imgUrl}/>
         <div className="post__caption">
-            <p><strong>{userName}</strong>&nbsp;&nbsp;{caption}</p>
+            <p><strong><Link to={`profile/${userName}`}>{userName}</Link></strong>&nbsp;&nbsp;{caption}</p>
         </div>
 
         <div className="post__comments">
             { comments.map(cmt => (
-                <p><strong>{cmt.displayName}</strong>{cmt.text}</p>
+                <p><strong><Link to={`profile/${cmt.displayName}`} >{cmt.displayName}</Link></strong>{cmt.text}</p>
              ) )}
         </div>
 
