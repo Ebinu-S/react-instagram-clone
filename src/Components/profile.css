@@ -1,0 +1,29 @@
+.profile__container{
+    background-color: #f4f3f3;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.profile__header{
+    display: flex;
+    flex-direction: row;
+    height: 25vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__avtar{
+    width: 250px;
+    height: 250px;
+}
+
+.profile__posts{
+    background-color: rebeccapurple;
+    display: grid;
+}
+
+.profile__image{
+    width: 400px;
+    object-fit: contain;
+}

@@ -8,6 +8,8 @@ import signUpImage from './images/signup.svg';
 import LoginImage from './images/login.svg';
 import Upload from './Components/Upload.js';
 import Posts from './Components/Posts.js';
+import Profile from './Components/Profile.js';
+import { BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
 
 
 function App() {
@@ -26,16 +28,13 @@ function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(authUser => {
       if(authUser){
-        console.log(authUser);
         setUser(authUser);
           if(authUser.displayName){
-            // add 
-            console.log(authUser.displayName,'yes');
+            // {-}
           }else{
              return authUser.updateProfile({
               displayName: userName
             });
-            console.log(authUser.displayName,'no');
           }
       }
       else{
@@ -47,7 +46,6 @@ function App() {
 
   },[user,userName]);
 
-  user && console.log(user,user.displayName);
   //populate posts component
   useEffect(() => {
     db.collection('Posts').orderBy('timestamp','desc').onSnapshot(snapshot => {
@@ -82,7 +80,6 @@ function App() {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(userName, "signup", password);
     auth.createUserWithEmailAndPassword(email, password).then(authUser => {
       setUser(authUser);
       return authUser.user.updateProfile({
@@ -92,7 +89,6 @@ function App() {
       alert(err);
       // todo: popup error message
     })
-    console.log(userName, user,"signup_end", password);
     setOpen(false);
   }
 
@@ -107,13 +103,13 @@ function App() {
     setSigninOpen(false);
   }
 
-  user && console.log(user.displayName);
 
   const classes = useStyles();
   return (
     <div className="App">
+      <Router >
       <nav>
-        <img src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'/>
+        <Link to='/' className='app__navLink'><img src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'/></Link> 
         <div className="app__navLeft">
  
           {user ? (
@@ -182,16 +178,16 @@ function App() {
             {user && <Upload userName={user.displayName} modalStyle={modalStyle} paper={classes.paper} setNewpostOpen={setNewpostOpen}/>}
           </Modal>
 
-      <Posts posts={posts} user={user} />
+        <Switch>
+          <Route exact path="/">
+            <Posts posts={posts} user={user} />
+          </Route>
+          <Route exact path='/profile/:uname'>
+            <Profile posts={posts}/>
+          </Route>
+        </Switch>
 
-      {/* <div className="posts__container">
-          {user? (posts.map(({id, post}) =>{
-            return <Post key={id} id={id} caption={post.caption} userName={post.username} imgUrl={post.imageUrl} user={user} />
-          } ) ):(
-            <h1>Please login or Sign up to browse feed.</h1>
-          )
-        }
-      </div> */}
+      </Router>
     </div> 
   );
 }

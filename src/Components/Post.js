@@ -2,6 +2,7 @@ import { useState, useEffect} from 'react';
 import { Avatar } from "@material-ui/core";
 import { db} from './Firebase'; 
 import firebase from 'firebase';
+import {Link} from 'react-router-dom';
 
 
 const Post = ({imgUrl, id, caption, userName, user}) => {
@@ -45,7 +46,7 @@ const Post = ({imgUrl, id, caption, userName, user}) => {
             <Avatar src="static/images/avatar/1.jpg" 
             alt={userName} 
             className="post__avatar" />
-            <p><strong>{userName}</strong></p>
+            <p><strong><Link to={`profile/${userName}`} >{userName}</Link></strong></p>
             {/* add a menu for deleting post if you are the user?  */}
 
         </div>        

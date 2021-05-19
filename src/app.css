@@ -10,6 +10,11 @@ nav{
 nav img {
     object-fit: contain;
 }
+
+a{
+    text-decoration: none;
+    color: #1b1919;
+}
   
 .app__btn{
     border:0;
@@ -37,8 +42,8 @@ nav img {
 .app_modal{
     display: flex;
     flex-direction: row;
-    height:'500px';
-    width:'700px';
+    height:500px;
+    width:700px;
 }
 .app__modalRight{
     background-color: rgb(63, 61, 86);
@@ -75,6 +80,10 @@ nav img {
 .app__form input{
     padding: 0.8rem 0.2rem;
     font-size: 15px;
+}
+
+.app__navLink{
+    display: flex;
 }
 
 .posts__container{
@@ -186,5 +195,13 @@ nav img {
 @media (max-width: 690px) {
     .post{
         width: 400px;
+    }
+    
+    .app_modal{
+        width: 400px;
+    }
+
+    .app__modalRight{
+        display: none;
     }
 }
