@@ -23,7 +23,7 @@ function App() {
 
   //
   useEffect(() => {
-    const fn = auth.onAuthStateChanged(authUser => {
+    const unsubscribe = auth.onAuthStateChanged(authUser => {
       if(authUser){
         console.log(authUser);
         setUser(authUser);
@@ -31,7 +31,7 @@ function App() {
             // add 
             console.log(authUser.displayName,'yes');
           }else{
-             authUser.updateProfile({
+             return authUser.updateProfile({
               displayName: userName
             });
             console.log(authUser.displayName,'no');
@@ -42,7 +42,7 @@ function App() {
       }
     })
 
-    return () => fn();
+    return () => unsubscribe();
 
   },[user,userName]);
 
@@ -72,8 +72,6 @@ function App() {
     paper: {
       position: 'absolute',
       backgroundColor: theme.palette.background.paper,
-      height:'500px',
-      width:'700px',
       boxShadow: theme.shadows[5],
       borderRadius: `10px`,
       overflow: `hidden`
@@ -85,8 +83,9 @@ function App() {
     e.preventDefault();
     console.log(userName, "signup", password);
     auth.createUserWithEmailAndPassword(email, password).then(authUser => {
-      authUser.user.updateProfile({
-        displayName: 'userName aan'
+      setUser(authUser);
+      return authUser.user.updateProfile({
+        displayName: userName
       });
     }).catch(err => {
       alert(err);
@@ -107,6 +106,8 @@ function App() {
     setSigninOpen(false);
   }
 
+  user && console.log(user.displayName);
+
   const classes = useStyles();
   return (
     <div className="App">
@@ -126,7 +127,8 @@ function App() {
             </span>
           )
           }
-
+        </div>  
+      </nav>
           {/* signup Modal */}
           <Modal open={open}
           onClose={() => setOpen(false)}>
@@ -179,8 +181,7 @@ function App() {
             {user && <Upload userName={user.displayName} modalStyle={modalStyle} paper={classes.paper} setNewpostOpen={setNewpostOpen}/>}
           </Modal>
 
-        </div>  
-      </nav>
+
 
       <div className="container">
 

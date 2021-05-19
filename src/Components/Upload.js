@@ -14,8 +14,6 @@ const Upload = ({userName, modalStyle, paper, setNewpostOpen}) => {
         }
     }
 
-    console.log('uname',userName);
-
     const handleUpload = (e) => {
         e.preventDefault(); 
 
@@ -47,8 +45,6 @@ const Upload = ({userName, modalStyle, paper, setNewpostOpen}) => {
             }
             );
     }
-
-    console.log(caption);
 
     return ( 
     <div className={`${paper} upload__container`} style={modalStyle}>
