@@ -119,8 +119,8 @@ function App() {
           {user ? (
             <span>
             <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
-            <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
             <Link className='app__btn' to={`/profile/${user.displayName}`}><i class="far fa-user-circle"></i></Link>
+            <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
             <button variant='contained' className='app__btn' onClick={() => auth.signOut()}>Logout</button>
             </span>
           ):(

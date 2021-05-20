@@ -1,18 +1,52 @@
+import {useState } from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {Avatar} from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import {db} from './Firebase';
 import './profile.css';
+import Posts from './Posts';
 
 const Profile = ({posts}) => {
     const {uname } = useParams();
-    
-    const UserPosts = posts.filter(t => t.post.username === uname);
+    const [open, setOpen] = useState(false);
+    const [caption, setCaption] = useState('');
+    const [imgUrl, setImgUrl] = useState('');
+    const [comment, setComment] = useState([]); 
+    const [comments, setComments] = useState([]); 
+
+    const UserPosts = posts.filter(t => t.post.username === uname); 
+
+    const handleClick = (caption,url,id) => {
+        setOpen(true);
+        setCaption(caption);
+        setImgUrl(url);
+        getComments(id);
+    };
+
+    const getComments = (id) => {
+        db.collection('Posts').doc(id).collection("Comments").orderBy('timestamp','asc')
+        .onSnapshot(snap => {
+            setComments(
+                snap.docs.map(doc => (
+                    doc.data()
+                ))
+            );
+        })
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setComments([]);
+        setComment('');
+        setImgUrl('');
+        setCaption('');
+    }
+
+    console.log(comments);
 
     return ( 
     <div className="profile__container">
-        {/* header
-            avathar name ?likes?
-        posts of the use sort but descenting timestamp
-         */}
+
          <div className="profile__header">
              <Avatar alt={uname} src="static/images/avatar/1.jpg" className="profile__avtar"/>
              <div className="profile__details">
@@ -23,12 +57,40 @@ const Profile = ({posts}) => {
         {/* user userName/ post count /settings icon */}
         <div className="profile__posts">
             {UserPosts.map(obj => (
-                <Link  className='profile__obj'>
+                <a  className='profile__obj' onClick={() => handleClick(obj.post.caption, obj.post.imageUrl,obj.id)}>
                     <img src={obj.post.imageUrl} className="profile__image"/>
-                </Link>
+                </a>
             ))}
         </div>
- 
+
+        <Modal open={open} onClose={handleClose}>
+            <div className='profile__modal'>
+              <img src={imgUrl}/>
+              <div className="profile__mright">
+                  <div className='profile__mheader'>
+                      <Avatar alt={uname} src="static/images/avatar/1.jpg"/><h3>{uname}</h3>
+                  </div>
+                  <div className='profile__mdetails'>
+                      <div className="profile_caption">
+                        <Avatar alt={uname} src="static/images/avatar/1.jpg"/> <h4>{uname}</h4> 
+                        <p>{caption}</p>
+                      </div>
+                      {/* comments */}
+                      {comments.map(cmt => (
+                          <div className="profile_mComment">
+                              <div className="profile__mComment_detail">
+                                  <Avatar alt={cmt.displayName} src="static/images/avatar/1.jpg" className="profile__mCommentAvatar"/>
+                                  <span>
+                                      <strong><Link to={`/profile/${cmt.displayName}`} onClick={handleClose}>{cmt.displayName}</Link></strong>{cmt.text}
+                                  </span>
+                              </div>    
+                          </div>
+                      ))}
+                  </div>
+                  {/* add comment form */}
+              </div>  
+            </div>
+        </Modal>
 
     </div> );
 }

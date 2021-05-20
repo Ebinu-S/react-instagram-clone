@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
 }
 .profile__header{
     display: flex;
@@ -34,6 +35,7 @@
     background-color: black;    
     width: 350px;
     height: 400px;
+    color: blanchedalmond;
 }
 
 
@@ -47,11 +49,100 @@
 }
 
 .profile__image:hover{
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 .profile__details h2{
     font-family: 'Oleo Script Swash Caps', cursive;
+}
+
+.profile__modal{
+    /* width: 700px; */
+    max-height: 700px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    background-color: black;
+    overflow: hidden;
+    outline: none;
+}
+.profile__modal img{
+    min-width: 200px;
+    max-width: 700px;
+    object-fit: contain;
+}
+
+.profile__mright{
+    background-color: #fdfaf6;
+    width: 400px;
+}
+
+.profile__mheader{
+    display: flex;
+    height: 4rem;
+    box-shadow: 5px 1px 4px 1px rgba(0,0,0,.21);
+    padding: 12px;
+    align-items: center;
+}
+
+.profile__mheader h3{
+    margin-left: 10px;
+}
+
+.profile__mdetails{
+    /* min-height: 150px; */
+    max-height: 600px;
+    width: 400px;
+    overflow-y: scroll;
+    padding: 1rem;
+    transition: .3s;
+}
+
+.profile__mdetails:hover{
+    height: auto;
+}
+
+.profile__mdetails::-webkit-scrollbar{
+    width: 6px;
+}
+
+.profile__mdetails::-webkit-scrollbar-track{
+    background-color: none;
+}
+
+.profile__mdetails::-webkit-scrollbar-thumb{
+    background-color: cornflowerblue;
+}
+
+.profile_caption{
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    flex-wrap: wrap;
+}
+
+.profile_caption h4{
+    margin: 0 10px 0 ;
+}
+
+.profile_caption p{
+    padding: 1rem 0;
+}
+
+.profile__mComment_detail{
+    display: flex;
+    align-items: center;
+    width: 360px;
+    padding: 5px 0;
+}
+.profile__mComment_detail span{
+    margin-left: 10px;
+}
+
+.profile__mComment_detail span strong{
+    margin-right: 5px;
 }
 
 @media (max-width: 900px){
@@ -62,6 +153,11 @@
         width: 233px;
         height: 266px;
         object-fit: cover;
+    }
+
+    .profile__obj{
+        width: 233px;
+        height: 266px;
     }
 }
 
@@ -75,5 +171,10 @@
         width: 175px;
         height: 200px;
         object-fit: cover;
+    }
+
+    .profile__obj{
+        width: 175px;
+        height: 200px;
     }
 }
