@@ -1,0 +1,55 @@
+.home__container{
+    display: flex;
+    width: 100vw;
+    flex-direction: row;
+}
+
+.home__left{
+    width: 50vw;
+    transform: translate(10rem,4rem);
+    z-index: 0;
+}
+
+
+.home__right{
+    background-color: #fafafa;
+    z-index: 1;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+    height: 10rem;
+}
+
+.home__right h1{
+    color: #ff6584;
+}
+.home__right span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 6rem;
+}
+
+.home__right span button{
+    border: none;
+    padding: 0.8rem;
+    font: inherit;
+    font-size: 1.4rem;
+    margin: 0.5rem 1rem;
+    border-radius: 10px;
+    transition: .3s ease-in-out;
+}
+
+.home__signin:hover{
+    background-color: #00bfa6;
+    color: ivory;
+}
+
+.home__signup:hover{
+    background-color: #575a89;
+    color: ivory;
+}
+
+/* ocotopus #00bfa6
+dress #575a89 */

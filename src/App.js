@@ -112,7 +112,7 @@ function App() {
         <Link to='/' className='app__navLink'><img src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'/></Link> 
         <div className="app__navLeft">
  
-          {user ? (
+          {user &&
             <span>
               <Tooltip title='Add new post' className="tooltip">
                 <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
@@ -125,12 +125,6 @@ function App() {
               </Tooltip>
               <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
             </span>
-          ):(
-            <span>
-              <button className='app__btn' onClick={() => setSigninOpen(true)}>Log In</button>
-              <button className='app__btn bg_blue' onClick={() => setOpen(true)}>Sign Up</button>
-            </span>
-          )
           }
         </div>  
       </nav>
@@ -195,7 +189,7 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <Posts posts={posts} user={user} />
+            <Posts posts={posts} user={user} setSigninOpen={setSigninOpen} setOpen={setOpen}/>
           </Route>
           <Route exact path='/profile/:uname'>
             <Profile posts={posts}/>
@@ -204,7 +198,7 @@ function App() {
             <PostDetail/>
           </Route>
         </Switch>
-
+        
         <footer>
           <h1>This is a footer <a href='https://github.com/Ebinu-S' target="_blank">My Github</a></h1>
         </footer>
