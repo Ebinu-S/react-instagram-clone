@@ -25,6 +25,11 @@ footer{
 footer a{
     text-decoration: underline;
 }
+
+.tooltip{
+    padding: 10px;
+}
+
 .app__btn{
     border:0;
     padding: 0.8rem;

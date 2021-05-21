@@ -13,6 +13,7 @@ import Profile from './Components/Profile.js';
 import PostDetail from './Components/PostDetail';
 import useFetch from './Components/useFetch';
 import Settings from './Components/Settings.js';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 function App() {
@@ -113,15 +114,21 @@ function App() {
  
           {user ? (
             <span>
-            <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
-            <Link className='app__btn' to={`/profile/${user.displayName}`}><i class="far fa-user-circle"></i></Link>
-            <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
-            <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
+              <Tooltip title='Add new post' className="tooltip">
+                <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
+              </Tooltip>
+              <Tooltip title={user.displayName} className="tooltip">
+                <Link className='app__btn' to={`/profile/${user.displayName}`}><i class="far fa-user-circle"></i></Link>
+              </Tooltip>
+              <Tooltip title='settings' className="tooltip">
+                <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
+              </Tooltip>
+              <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
             </span>
           ):(
             <span>
-            <button className='app__btn' onClick={() => setSigninOpen(true)}>Log In</button>
-            <button className='app__btn bg_blue' onClick={() => setOpen(true)}>Sign Up</button>
+              <button className='app__btn' onClick={() => setSigninOpen(true)}>Log In</button>
+              <button className='app__btn bg_blue' onClick={() => setOpen(true)}>Sign Up</button>
             </span>
           )
           }
