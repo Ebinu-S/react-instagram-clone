@@ -12,6 +12,7 @@ import Posts from './Components/Posts.js';
 import Profile from './Components/Profile.js';
 import PostDetail from './Components/PostDetail';
 import useFetch from './Components/useFetch';
+import Settings from './Components/Settings.js';
 
 
 function App() {
@@ -22,9 +23,10 @@ function App() {
   const [open, setOpen] = useState(false);
   const [signinOpen, setSigninOpen] = useState(false);
   const [newpostOpen,setNewpostOpen] = useState(false);
+  const [settingsOpen,setSettingsOpen] = useState(false);
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
-  const [password, setPassword] = useState(''); 
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(authUser => {
@@ -92,12 +94,12 @@ function App() {
   }
 
   const handleSettings = () => {
-    //
+    setSettingsOpen(true);
   }
 
   const handleLogout = () => {
     auth.signOut();
-    // usehistory.push('/');
+    //todo usehistory.push('/');
   }
 
 
@@ -175,6 +177,13 @@ function App() {
           open={newpostOpen}
           onClose={() => setNewpostOpen(false)}>
             {user && <Upload userName={user.displayName} modalStyle={modalStyle} paper={classes.paper} setNewpostOpen={setNewpostOpen}/>}
+          </Modal>
+
+          {/* settings Modal */}
+          <Modal 
+          open={settingsOpen}
+          onClose={() => setSettingsOpen(false)}>
+            <Settings />
           </Modal>
 
         <Switch>

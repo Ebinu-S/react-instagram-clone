@@ -6,8 +6,8 @@ import InputComment from './InputComment.js';
 
 const Post = ({imgUrl, id, caption, userName, user}) => {
 
-    const [comment,setComment] = useState('');
     const [comments,setComments] = useState([]);
+    let cmtLength = 0;
 
     useEffect(() => {
         let unsubscribe;
@@ -43,9 +43,18 @@ const Post = ({imgUrl, id, caption, userName, user}) => {
         </div>
 
         <div className="post__comments">
-            { comments.map(cmt => (
-                <p><strong><Link to={`profile/${cmt.displayName}`} >{cmt.displayName}</Link></strong>{cmt.text}</p>
-             ) )}
+            {comments.length > 5 && <p><Link to={`/postdetail/${id}`} className="post__seeCmnts">View all {comments.length } comments.</Link></p>}
+            { comments.length > 5?(comments.slice(0,5).map(cmt => (
+                <span>
+                 <p><strong><Link to={`profile/${cmt.displayName}`} >{cmt.displayName}</Link></strong>{cmt.text}</p>
+                </span>
+             ))):(
+                comments.map(cmt => (
+                    <span>
+                     <p><strong><Link to={`profile/${cmt.displayName}`} >{cmt.displayName}</Link></strong>{cmt.text}</p>
+                    </span>
+                 ))
+             )}
         </div>
 
         <InputComment postId={id}/>

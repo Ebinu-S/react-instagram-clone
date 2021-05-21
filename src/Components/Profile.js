@@ -1,4 +1,4 @@
-import {useState, useEffect } from 'react';
+import {useState} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {Avatar} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
@@ -16,9 +16,9 @@ const Profile = () => {
     const [comments, setComments] = useState([]); 
     const [currentId, setCurrentId] = useState('');
     const {posts} = useFetch();
-    
-    // get user from the username 
+    const width = window.screen.width;
 
+    // get user from the username 
     const userPosts = posts.filter(t => t.post.username === uname);
 
     const handleClick = (caption,url,id) => {
@@ -48,7 +48,7 @@ const Profile = () => {
         setCaption('');
     }
 
-    // console.log(comments);
+    console.log(userPosts);
 
     return ( 
     <div className="profile__container">
@@ -63,9 +63,15 @@ const Profile = () => {
         {/* user userName/ post count /settings icon */}
         <div className="profile__posts">
             {userPosts.map(obj => (
-                <a  className='profile__obj' onClick={() => handleClick(obj.post.caption, obj.post.imageUrl,obj.id)}>
-                    <img src={obj.post.imageUrl} className="profile__image"/>
-                </a>
+                width > 600? (
+                    <a  className='profile__obj' onClick={() => handleClick(obj.post.caption, obj.post.imageUrl,obj.id)}>
+                        <img src={obj.post.imageUrl} className="profile__image"/>
+                    </a>
+                ):(
+                    <Link to={`/postdetail/${obj.id}`} className='profile__obj'>
+                        <img src={obj.post.imageUrl} className="profile__image"/>
+                    </Link>
+                )
             ))}
         </div>
 

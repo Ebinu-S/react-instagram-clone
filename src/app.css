@@ -144,6 +144,10 @@ footer a{
     margin-right : 10px;
 }
 
+.post__seeCmnts{
+    color: rgb(163, 163, 163);
+}
+
 .upload__container{
     padding: 20px;
     display: flex;
@@ -228,7 +232,13 @@ footer a{
 .detail__commentInput{
     margin-top: 1rem;
 }
+@media (max-width: 900px){
+
+    
+}
+
 @media (max-width: 690px) {
+
     .post{
         width: 400px;
     }
@@ -240,4 +250,29 @@ footer a{
     .app__modalRight{
         display: none;
     }
+
+    .detail__container{
+        font-size: 16px;
+    }
+
+    .detail__header{
+        margin-top: 2rem;
+        width: 98vw;
+    }
+
+    .detail__captionContainer{
+        padding: 1rem 0;
+        width: 90vw;
+    }
+    .detail__image{
+        width: 98vw;
+    }
+    .detail__commentContainer{
+        width: 90vw;
+    }
+
+    .detail__captionContainer strong{
+        font-size: 1rem;
+    }
 }
+
