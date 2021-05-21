@@ -1,12 +1,11 @@
 import {useState, useEffect} from 'react';
-import Post from './Components/Post.js';
 import './app.css';
 import {db, auth} from './Components/Firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import signUpImage from './images/signup.svg';
-import LoginImage from './images/login.svg';
+import LoginImage from './images/fall.svg';
 import Upload from './Components/Upload.js';
 import Posts from './Components/Posts.js';
 import Profile from './Components/Profile.js';
@@ -25,6 +24,7 @@ function App() {
   const [signinOpen, setSigninOpen] = useState(false);
   const [newpostOpen,setNewpostOpen] = useState(false);
   const [settingsOpen,setSettingsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -113,6 +113,7 @@ function App() {
         <div className="app__navLeft">
  
           {user &&
+            window.screen.window > 600 ?(
             <span>
               <Tooltip title='Add new post' className="tooltip">
                 <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
@@ -125,6 +126,9 @@ function App() {
               </Tooltip>
               <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
             </span>
+            ):(
+              <button onClick={() => setMobileMenuOpen(true)} className="app__navHam"><i class="fas fa-bars"></i></button>
+            ) 
           }
         </div>  
       </nav>
@@ -133,10 +137,10 @@ function App() {
           onClose={() => setOpen(false)}>
             <div style={modalStyle} className={classes.paper}>
               <div className="app_modal">
-                <div className='app__modalRight'>
+                <div className='app__modalLeft'>
                   <img src={signUpImage} className='app_signupimg'/>
                 </div>
-                <div className='app__modalLeft'>
+                <div className=' app__modalRight'>
                   <h3>Sign Up</h3>
                   <form className='app__form' onSubmit={handleSignUp}>
                     <label>Username</label>
@@ -157,11 +161,11 @@ function App() {
           onClose={() => setSigninOpen(false)}>
             <div style={modalStyle} className={classes.paper}>
               <div className="app_modal">
-                <div className='app__modalRight'>
+                <div className='app__modalLeft'>
                   <img src={LoginImage} className='app_loginimg'/>
                 </div>
-                <div className='app__modalLeft'>
-                  <h3>Sign In</h3>
+                <div className='app__modalRight'>
+                  <h1>Welcome back!!</h1>
                   <form className='app__form' onSubmit={handleSignIn}>
                     <label>Email</label>
                     <input type='email' onChange={(e) => setEmail(e.target.value)}></input>
@@ -186,6 +190,18 @@ function App() {
           onClose={() => setSettingsOpen(false)}>
             <Settings />
           </Modal>
+
+          {/* mobile menu modal */}
+          {user && <Modal 
+          open={mobileMenuOpen}
+          onClose={() => setMobileMenuOpen(false)}>
+            <div className='app__mobileMenu'>
+                <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}>Add new post</button>     
+                <Link className='app__btn border-top' to={`/profile/${user.displayName}`}>Profile </Link>
+                <button variant='contained' className='app__btn border-top' onClick={handleSettings}>Settings</button>
+                <button variant='contained' className='app__btn btn_bgRed border-top' onClick={handleLogout}>Logout</button>
+            </div>
+          </Modal>}
 
         <Switch>
           <Route exact path="/">

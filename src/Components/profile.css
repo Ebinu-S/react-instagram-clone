@@ -45,7 +45,7 @@
     object-fit: cover;
     opacity: 1;
     transition: .2s ease-in;
-    /* padding: 10px; */
+    border-radius: 3px;
 }
 
 .profile__image:hover{

@@ -33,11 +33,11 @@
 
 .home__right span button{
     border: none;
-    padding: 0.8rem;
+    padding: 0.6rem;
     font: inherit;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     margin: 0.5rem 1rem;
-    border-radius: 10px;
+    border-radius: 6px;
     transition: .3s ease-in-out;
 }
 
@@ -49,6 +49,24 @@
 .home__signup:hover{
     background-color: #575a89;
     color: ivory;
+}
+
+@media (max-width: 690px){
+    .home__container{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .home__left{
+        width: 100vw;
+        transform: translate(0rem,4rem);
+    }
+
+    .home__right{
+        border-radius: .5rem;
+        height: 13rem;
+        width: 90vw;
+    }
 }
 
 /* ocotopus #00bfa6

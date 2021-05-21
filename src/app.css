@@ -62,23 +62,55 @@ footer a{
     width:700px;
 }
 .app__modalRight{
-    background-color: rgb(63, 61, 86);
     height: 500px;
     width: 350px;
-    display: flex;
-}
-.app_signupimg{
-    width: 250px;
-    justify-content: center;
-    align-items: center;
-}
-
-.app__modalLeft{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #faf3f3;
+}
+
+.app__modalRight h1{
+    color: #21094e;
+    margin: 1rem 0;
+}
+
+
+.app_loginimg{
     width: 350px;
+    transform: translateX(3rem);
+    animation: loginAnim .3s;
+}
+@keyframes loginAnim {
+    from{
+        transform: translateX(-3rem);
+    }
+    to{
+        transform: translateX(3rem);
+    }
+}
+
+.app_signupimg{
+    width: 250px;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(3rem);
+    animation: signinAnim .3s;
+}
+@keyframes signinAnim {
+    from{
+        transform: translateX(-3rem);
+    }
+    to{
+        transform: translateX(3rem);
+    }
+}
+
+.app__modalLeft{
+    display: flex;
+    width: 350px;
+    background-color: #faf3f3;
 }
 
 .app__form{
@@ -86,20 +118,91 @@ footer a{
     flex-direction: column;
     justify-content: center;
     width: 70%;
+    animation: formAnim .3s;
+    transform: translateX(0rem);
+}
+
+@keyframes formAnim {
+    from{
+        transform: translateX(3rem);
+    }
+    to{
+        transform: translateX(0rem);
+    }
 }
 
 .app__form label{
     display: block;
     font-size: 1rem;
+    padding: 2px;
+    color: #21094e;
 }
 
 .app__form input{
+    margin: 0.2rem 0;
     padding: 0.8rem 0.2rem;
     font-size: 15px;
+    border: 2px solid rgb(0, 191, 166);
+    border-radius: 7px;
+}
+
+.app__form input:focus{
+    outline: none;
+}
+
+.app__form button{
+    margin-top: 1rem;
+    font-size: 1rem;
+    border-radius: 7px;
+    border: 0;
+    padding: .4rem 0;
+    background-color: #4c4888;
+    transition: .3s ease-out;
+    color: #fdfaf6;
+}
+
+.app__form button:hover{
+    background-color: #3f3d56;
 }
 
 .app__navLink{
     display: flex;
+}
+
+.app__mobileMenu{
+    display: flex;
+    flex-direction: column;
+    background-color: #faf3f3;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 16rem;
+    width: 18rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 1rem;
+}
+
+.app__mobileMenu button, .app__mobileMenu a{
+    width: 100%;
+    border-radius: 0;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    padding: 0.6rem;
+}
+
+.app__navHam{
+    border: 0;
+    background-color: inherit;
+    font-size: 1.4rem;
+}
+
+.border-top{
+    border-top: 1px solid black;
 }
 
 .posts__container{
@@ -249,10 +352,10 @@ footer a{
     }
     
     .app_modal{
-        width: 400px;
+        width: 350px;
     }
 
-    .app__modalRight{
+    .app__modalLeft{
         display: none;
     }
 
