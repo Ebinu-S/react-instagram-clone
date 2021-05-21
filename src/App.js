@@ -3,7 +3,7 @@ import Post from './Components/Post.js';
 import './app.css';
 import {db, auth} from './Components/Firebase';
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import signUpImage from './images/signup.svg';
 import LoginImage from './images/login.svg';
@@ -26,7 +26,6 @@ function App() {
   const [email,setEmail] = useState('');
   const [password, setPassword] = useState(''); 
 
-  //
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(authUser => {
       if(authUser){
@@ -96,6 +95,11 @@ function App() {
     //
   }
 
+  const handleLogout = () => {
+    auth.signOut();
+    // usehistory.push('/');
+  }
+
 
   const classes = useStyles();
   return (
@@ -110,7 +114,7 @@ function App() {
             <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
             <Link className='app__btn' to={`/profile/${user.displayName}`}><i class="far fa-user-circle"></i></Link>
             <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
-            <button variant='contained' className='app__btn btn_bgRed' onClick={() => auth.signOut()}>Logout</button>
+            <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
             </span>
           ):(
             <span>
@@ -185,6 +189,9 @@ function App() {
           </Route>
         </Switch>
 
+        <footer>
+          <h1>This is a footer <a href='https://github.com/Ebinu-S' target="_blank">My Github</a></h1>
+        </footer>
       </Router>
     </div> 
   );

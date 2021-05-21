@@ -15,7 +15,16 @@ a{
     text-decoration: none;
     color: #1b1919;
 }
-  
+ 
+footer{
+    margin-top: 3rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+footer a{
+    text-decoration: underline;
+}
 .app__btn{
     border:0;
     padding: 0.8rem;
@@ -161,6 +170,64 @@ a{
     transition: .3s ease-in-out;
 }
 
+.detail__container{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Average Sans', sans-serif;
+    font-size: 18px;
+    margin-top: 1rem;
+}
+
+.detail__header{
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    width: 70vw;
+}
+
+.detail__header strong{
+    margin-left: .7rem;
+}
+
+.detail__image{
+    width: 70vw;
+}
+
+.detail__captionContainer{
+    padding: 2rem 0;
+    width: 70vw;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.detail__captionContainer strong{
+    font-size: 1.4rem;
+    margin-right: 1rem;
+}
+
+.detail__commentContainer{
+    width: 70vw;
+}
+.detail__commentContainer div {
+    display: flex;
+    align-items: center;
+}
+
+.detail__commentContainer div span{
+    padding: 1rem 10px;
+}
+
+.detail__commentContainer div span strong{
+    margin-right: .6rem;
+}
+
+.detail__commentInput{
+    margin-top: 1rem;
+}
 @media (max-width: 690px) {
     .post{
         width: 400px;
