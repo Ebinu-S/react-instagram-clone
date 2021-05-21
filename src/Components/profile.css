@@ -55,7 +55,9 @@
 .profile__details h2{
     font-family: 'Oleo Script Swash Caps', cursive;
 }
-
+.profile_modalmain{
+    overflow: scroll;
+}
 .profile__modal{
     /* width: 700px; */
     max-height: 700px;
@@ -68,6 +70,7 @@
     overflow: hidden;
     outline: none;
 }
+
 .profile__modal img{
     min-width: 200px;
     max-width: 700px;
@@ -84,6 +87,12 @@
     height: 4rem;
     box-shadow: 5px 1px 4px 1px rgba(0,0,0,.21);
     padding: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile__mheader span{
+    display: flex;
     align-items: center;
 }
 
@@ -139,10 +148,20 @@
 }
 .profile__mComment_detail span{
     margin-left: 10px;
+    width: 300px;
+    word-wrap: break-word;
 }
 
 .profile__mComment_detail span strong{
     margin-right: 5px;
+}
+
+@media (max-width: 1110px){
+    .profile__modal{
+        flex-direction: column ;
+        overflow: scroll;
+        max-height: max-content;
+    }
 }
 
 @media (max-width: 900px){

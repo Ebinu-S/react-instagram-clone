@@ -1,0 +1,33 @@
+
+.input__commentform{
+    padding: 10px;
+    display: flex;
+}
+
+.input__commentform input{
+    border: 0;
+    flex: 1;
+    font: inherit;
+    padding: 4px;
+    background-color: inherit;
+    border-bottom: 1px solid lightgray;
+}
+
+.input__commentform input:focus{
+    outline: 1px solid lightgrey;
+    border-bottom: 0;
+}
+
+.input__commentform button{
+    border:0;
+    background-color: transparent;
+    color: #3d84b8;
+    padding: 10px;
+    transition: .3s ease;
+    border-radius: 4px;
+}
+
+.input__commentform button:hover{
+    background-color: #3d84b8;
+    color: #f4f9f9;
+}

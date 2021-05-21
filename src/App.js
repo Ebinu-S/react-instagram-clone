@@ -3,18 +3,20 @@ import Post from './Components/Post.js';
 import './app.css';
 import {db, auth} from './Components/Firebase';
 import { makeStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import signUpImage from './images/signup.svg';
 import LoginImage from './images/login.svg';
 import Upload from './Components/Upload.js';
 import Posts from './Components/Posts.js';
 import Profile from './Components/Profile.js';
-import { BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
+import PostDetail from './Components/PostDetail';
+import useFetch from './Components/useFetch';
 
 
 function App() {
 
-  const [posts, setPosts] = useState([]);
+  const {posts} = useFetch();
   const [user, setUser] = useState(null);
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
@@ -45,19 +47,6 @@ function App() {
     return () => unsubscribe();
 
   },[user,userName]);
-
-  //populate posts component
-  useEffect(() => {
-    db.collection('Posts').orderBy('timestamp','desc').onSnapshot(snapshot => {
-      setPosts(
-        snapshot.docs.map(doc => ({
-          id: doc.id,
-          post: doc.data()
-        }))
-      )
-    })
-  }, []);
-
 
   function getModalStyle() {
     return {
@@ -121,7 +110,7 @@ function App() {
             <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
             <Link className='app__btn' to={`/profile/${user.displayName}`}><i class="far fa-user-circle"></i></Link>
             <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
-            <button variant='contained' className='app__btn' onClick={() => auth.signOut()}>Logout</button>
+            <button variant='contained' className='app__btn btn_bgRed' onClick={() => auth.signOut()}>Logout</button>
             </span>
           ):(
             <span>
@@ -190,6 +179,9 @@ function App() {
           </Route>
           <Route exact path='/profile/:uname'>
             <Profile posts={posts}/>
+          </Route>
+          <Route exact path='/postdetail/:postid'>
+            <PostDetail/>
           </Route>
         </Switch>
 

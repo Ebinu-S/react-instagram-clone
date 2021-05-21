@@ -1,25 +1,31 @@
-import {useState } from 'react';
+import {useState, useEffect } from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {Avatar} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import {db} from './Firebase';
 import './profile.css';
-import Posts from './Posts';
+import useFetch from './useFetch.js';
+import InputComment from './InputComment.js';
 
-const Profile = ({posts}) => {
-    const {uname } = useParams();
+const Profile = () => {
+    const {uname} = useParams();
     const [open, setOpen] = useState(false);
     const [caption, setCaption] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [comment, setComment] = useState([]); 
     const [comments, setComments] = useState([]); 
+    const [currentId, setCurrentId] = useState('');
+    const {posts} = useFetch();
+    
+    // get user from the username 
 
-    const UserPosts = posts.filter(t => t.post.username === uname); 
+    const userPosts = posts.filter(t => t.post.username === uname);
 
     const handleClick = (caption,url,id) => {
         setOpen(true);
         setCaption(caption);
         setImgUrl(url);
+        setCurrentId(id);
         getComments(id);
     };
 
@@ -42,7 +48,7 @@ const Profile = ({posts}) => {
         setCaption('');
     }
 
-    console.log(comments);
+    // console.log(comments);
 
     return ( 
     <div className="profile__container">
@@ -56,19 +62,23 @@ const Profile = ({posts}) => {
          </div>
         {/* user userName/ post count /settings icon */}
         <div className="profile__posts">
-            {UserPosts.map(obj => (
+            {userPosts.map(obj => (
                 <a  className='profile__obj' onClick={() => handleClick(obj.post.caption, obj.post.imageUrl,obj.id)}>
                     <img src={obj.post.imageUrl} className="profile__image"/>
                 </a>
             ))}
         </div>
 
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleClose} className="profile_modalmain">
             <div className='profile__modal'>
               <img src={imgUrl}/>
               <div className="profile__mright">
                   <div className='profile__mheader'>
-                      <Avatar alt={uname} src="static/images/avatar/1.jpg"/><h3>{uname}</h3>
+                      <span>
+                        <Avatar alt={uname} src="static/images/avatar/1.jpg"/>
+                        <h3>{uname}</h3>
+                      </span>
+                      <Link to={`/postdetail/${currentId}`}><i class="fas fa-expand"></i></Link>
                   </div>
                   <div className='profile__mdetails'>
                       <div className="profile_caption">
@@ -87,6 +97,7 @@ const Profile = ({posts}) => {
                           </div>
                       ))}
                   </div>
+                  <InputComment postId={currentId}/>
                   {/* add comment form */}
               </div>  
             </div>

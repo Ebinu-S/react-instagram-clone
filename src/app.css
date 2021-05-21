@@ -31,9 +31,11 @@ a{
     color: #f4f9f9 !important;
 }
 
-/* .bg_blue{
-    background-color: #3d84b8;
-} */
+.btn_bgRed:hover{
+    color: #f4f9f9 !important;
+    background-color: #fb3640;
+}
+
 .bg_blue:hover{
     background-color: #3172a0 !important;
     color:#f4f9f9;
@@ -131,39 +133,6 @@ a{
 
 .post__comments strong{
     margin-right : 10px;
-}
-
-.post__commentform{
-    padding: 10px;
-    display: flex;
-}
-
-.post__commentform input{
-    border: 0;
-    flex: 1;
-    font: inherit;
-    padding: 4px;
-    background-color: inherit;
-    border-bottom: 1px solid lightgray;
-}
-
-.post__commentform input:focus{
-    outline: 1px solid lightgrey;
-    border-bottom: 0;
-}
-
-.post__commentform button{
-    border:0;
-    background-color: transparent;
-    color: #3d84b8;
-    padding: 10px;
-    transition: .3s ease;
-    border-radius: 4px;
-}
-
-.post__commentform button:hover{
-    background-color: #3d84b8;
-    color: #f4f9f9;
 }
 
 .upload__container{
