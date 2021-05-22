@@ -4,18 +4,24 @@ import useFetch from './useFetch';
 import {auth, db} from './Firebase';
 import InputComment from './InputComment.js';
 import { Avatar } from "@material-ui/core";
+import Tooltip from '@material-ui/core/Tooltip';
+import Modal from '@material-ui/core/Modal';
+import DeletePost from './DeletePost.js';
 
 const PostDetail = () => {
     const {postid} = useParams(); 
     const [currentPost, setCurrentPost] = useState({});
     const [comments, setComments] = useState([]);
+    const [deleteOpen,setDeleteOpen] = useState(false);
     const {posts} = useFetch();
     const user = auth.currentUser;
 
     useEffect(() => {
         if(posts[0]){
             let post = posts.filter(p => p.id === postid);
-            setCurrentPost(post[0].post)
+            if(post[0]){
+                setCurrentPost(post[0].post)
+            }
         }
 
     },[posts])
@@ -43,8 +49,21 @@ const PostDetail = () => {
         {user ? (currentPost && (
         <span className="detail__container">
             <div className='detail__header'>
-                <Avatar src='static/images/avatar/1.jpg' alt={currentPost.username} />
-                <strong><Link to={`/profile/${currentPost.username}`}>{currentPost.username}</Link></strong>
+                <span>
+                    <Avatar src='static/images/avatar/1.jpg' alt={currentPost.username} />
+                    <strong><Link to={`/profile/${currentPost.username}`}>{currentPost.username}</Link></strong>
+                </span>
+                <span>
+                    <button ><i class="fas fa-ellipsis-v"></i></button>
+                    <div className="details__menu">
+                        {user && user.displayName === currentPost.username? (
+                            <Tooltip title="Delete this post">
+                                <button onClick={() => setDeleteOpen(true)}>
+                                <i class="fas fa-trash-alt"></i></button>
+                            </Tooltip>):('')
+                }
+                    </div>
+                </span>
             </div>
             <img src={currentPost.imageUrl} className='detail__image'/>
             <div className='detail__captionContainer'>
@@ -69,6 +88,12 @@ const PostDetail = () => {
         )):(
             <h1>Signup</h1>
         )}
+
+        <Modal 
+        open={deleteOpen}
+        onClose={() => setDeleteOpen(false)}>
+            <DeletePost setDeleteOpen={setDeleteOpen} currentId={postid} username={currentPost.username}/>
+        </Modal>
     </div> );
 }
  

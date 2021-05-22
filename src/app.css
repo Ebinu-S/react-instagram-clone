@@ -262,7 +262,12 @@ footer a{
     flex-direction: column; 
     background-color: #fafafa;
     position: absolute;
+    height: 530px;
+    width: 700px;
     border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .upload__form{
@@ -283,6 +288,7 @@ footer a{
 
 .upload__container button{
     border: 0;
+    background-color: #21bf73
 }
 
 .upload__imageLabel{
@@ -330,9 +336,6 @@ input[type='file']{
     border: 1px solid grey;
 }
 
-.upload__progress{
-}
-
 .detail__container{
     display: flex;
     flex-direction: column;
@@ -346,9 +349,27 @@ input[type='file']{
 
 .detail__header{
     display: flex;
-    align-items: center;
     padding-bottom: 10px;
+    justify-content: space-between;
     width: 70vw;
+}
+
+.detail__header span{
+    display: flex;
+    align-items: center;
+}
+
+.detail__header button{
+    border: 0;
+    color: #897853;
+    background-color: transparent;
+    transition: .3s;
+    font-size: 1.4rem;
+    border-radius: 10px;
+}
+
+.detail__header button:hover{
+    color: #4e3620;
 }
 
 .detail__header strong{

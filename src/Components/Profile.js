@@ -6,9 +6,8 @@ import {auth,db} from './Firebase';
 import './profile.css';
 import useFetch from './useFetch.js';
 import InputComment from './InputComment.js';
-import Home from './Home';
 import Tooltip from '@material-ui/core/Tooltip';
-import Button from '@material-ui/core/Button';
+import DeletePost from './DeletePost';
 
 const Profile = () => {
     const {uname} = useParams();
@@ -51,16 +50,6 @@ const Profile = () => {
         setComment('');
         setImgUrl('');
         setCaption('');
-    }
-
-    const handleDelete = () => {
-        db.collection('Posts').doc(currentId).delete().then(() => {
-            console.log('delted');
-            setDeleteOpen(false);
-            setOpen(false);
-        }).catch(error => {
-            console.log(error);
-        })
     }
 
     return ( 
@@ -131,19 +120,12 @@ const Profile = () => {
               </div>  
             </div>
         </Modal>
-
+        {/* delete post modal  */}
         <Modal 
           open={deleteOpen}
           onClose={() => setDeleteOpen(false)}>
-              <span className="profile__mDelete">
-                  <h2>Are you sure?</h2>
-                  <span>
-                    <Button variant="contained" color="secondary" onClick={handleDelete}>Yes</Button>
-                    <Button variant="contained" color="primary" onClick={() => setDeleteOpen(false)}>No</Button>
-                  </span>
-              </span>
+              <DeletePost currentId={currentId} setOpen={setOpen} setDeleteOpen={setDeleteOpen}/>
         </Modal>
-
         
     </div> );
 }

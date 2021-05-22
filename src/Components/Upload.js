@@ -49,7 +49,7 @@ const Upload = ({userName, modalStyle, setNewpostOpen}) => {
     }
 
     return ( 
-    <div className='app_modal upload__container ' style={modalStyle}>
+    <div className='upload__container'>
             <h2>Upload Image</h2>
             <form onSubmit={handleUpload} className='upload__form'>
                 <label className="upload__imageLabel" for="imageInput">Upload Image</label>
@@ -57,9 +57,9 @@ const Upload = ({userName, modalStyle, setNewpostOpen}) => {
                 {image && <i class="fas fa-check"></i>}
                 <label  className="upload__captionLabel">Caption</label>
                 <textarea className="upload__textarea" onChange ={( e) => setCaption(e.target.value)}></textarea>
-                <Button type='submit' disabled={!image} variant="contained" color="primary"> Post</Button>
+                <Button type='submit' disabled={!image} variant="contained" color="primary" > Post</Button>
             </form>
-            {isUploading && <LinearProgress value={progress} />}
+            {isUploading && <LinearProgress variant="determinate" value={progress} />}
     </div> 
     );
 }

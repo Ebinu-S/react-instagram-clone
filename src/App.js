@@ -187,7 +187,7 @@ function App() {
           <Modal
           open={newpostOpen}
           onClose={() => setNewpostOpen(false)}>
-            {user && <Upload userName={user.displayName} modalStyle={modalStyle} setNewpostOpen={setNewpostOpen}/>}
+            {user && <Upload userName={user.displayName} setNewpostOpen={setNewpostOpen}/>}
           </Modal>
 
           {/* settings Modal */}
