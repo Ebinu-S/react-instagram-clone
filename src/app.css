@@ -260,26 +260,77 @@ footer a{
     padding: 20px;
     display: flex;
     flex-direction: column; 
+    background-color: #fafafa;
+    position: absolute;
+    border-radius: 10px;
 }
 
 .upload__form{
     display: flex;
     flex-direction: column;
     margin: 2rem 0;
+    position: relative;
 }
+
 .upload__captionLabel{
     display: block;
+    margin: 2rem 0.1rem .7rem;
+}
+
+.upload__container h2{
+    font-size: 1.4rem;
+}
+
+.upload__container button{
+    border: 0;
 }
 
 .upload__imageLabel{
+    padding: 0.7rem;
+    cursor: pointer;
+    border: 2px solid #76b39d;
+    position: absolute;
+    width: 100%;
 }
 
-.upload__image{
-    object-fit: contain;
+.upload__form i{
+    color: #30e3ca;
+    position: absolute;
+    right: 1rem;
+    top: 10px;
+    font-size: 1.8rem;
+    animation: iPopin .5s;
+}
+
+@keyframes iPopin {
+    from{
+        opacity: 0;
+        right: -3rem;
+    }
+    to{
+        opacity: 1;
+        right: 1rem;
+    }
+}
+
+input[type='file']{
+    opacity: 0;
+}
+
+.upload__textarea{
+    height: 250px;
+    resize: none;
+    padding: 0.5rem;
+    font: inherit;
+    border: 1px solid lightgrey;
+}
+
+.upload__textarea:focus{
+    outline: none;
+    border: 1px solid grey;
 }
 
 .upload__progress{
-    transition: .3s ease-in-out;
 }
 
 .detail__container{

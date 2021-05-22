@@ -28,6 +28,9 @@ function App() {
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+  
+  let errorText = '';
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(authUser => {
@@ -88,9 +91,11 @@ function App() {
 
     auth.signInWithEmailAndPassword(email,password).catch(error => {
       //todo add error message handler
-      alert(error);
+      console.log(error);
+      errorText = error.code;
+      setIsError(true);
+      alert(error)
     })
-
     setSigninOpen(false);
   }
 
@@ -103,7 +108,7 @@ function App() {
     //todo usehistory.push('/');
   }
 
-
+  // console.log(user);
   const classes = useStyles();
   return (
     <div className="App">
@@ -112,11 +117,11 @@ function App() {
         <Link to='/' className='app__navLink'><img src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'/></Link> 
         <div className="app__navLeft">
  
-          {user &&
-            window.screen.window > 600 ?(
+          {user && (
+            window.screen.width > 600 ?(
             <span>
               <Tooltip title='Add new post' className="tooltip">
-                <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}> <i class="fas fa-plus"></i></button>     
+                <button className='app__btn' onClick={() => {setNewpostOpen(true)}}> <i class="fas fa-plus"></i></button>     
               </Tooltip>
               <Tooltip title={user.displayName} className="tooltip">
                 <Link className='app__btn' to={`/profile/${user.displayName}`}><i class="far fa-user-circle"></i></Link>
@@ -127,8 +132,8 @@ function App() {
               <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
             </span>
             ):(
-              <button onClick={() => setMobileMenuOpen(true)} className="app__navHam"><i class="fas fa-bars"></i></button>
-            ) 
+             <button onClick={() => {setMobileMenuOpen(true); console.log('hmm')}} className="app__navHam"><i class="fas fa-bars"></i></button>
+            ))
           }
         </div>  
       </nav>
@@ -173,6 +178,7 @@ function App() {
                     <input type='password' onChange={(e) => setPassword(e.target.value)}></input>
                     <button>Submit</button>
                   </form>
+                  <p>{errorText}</p>
                 </div></div>
             </div>  
           </Modal>
@@ -181,7 +187,7 @@ function App() {
           <Modal
           open={newpostOpen}
           onClose={() => setNewpostOpen(false)}>
-            {user && <Upload userName={user.displayName} modalStyle={modalStyle} paper={classes.paper} setNewpostOpen={setNewpostOpen}/>}
+            {user && <Upload userName={user.displayName} modalStyle={modalStyle} setNewpostOpen={setNewpostOpen}/>}
           </Modal>
 
           {/* settings Modal */}

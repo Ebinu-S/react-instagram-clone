@@ -1,8 +1,10 @@
 import {useState } from 'react';
 import {db, storage} from './Firebase';
 import firebase from 'firebase';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
 
-const Upload = ({userName, modalStyle, paper, setNewpostOpen}) => {
+const Upload = ({userName, modalStyle, setNewpostOpen}) => {
     const [progress, setProgress] = useState(50);
     const [isUploading, setIsUploading] = useState(false);
     const [image,setImage] = useState(null);
@@ -47,16 +49,17 @@ const Upload = ({userName, modalStyle, paper, setNewpostOpen}) => {
     }
 
     return ( 
-    <div className={`${paper} upload__container`} style={modalStyle}>
+    <div className='app_modal upload__container ' style={modalStyle}>
             <h2>Upload Image</h2>
             <form onSubmit={handleUpload} className='upload__form'>
-                <label className="upload__imageLabel">Upload Image</label>
-                <input type="file" className="upload__image" onChange={handleImage}></input>
+                <label className="upload__imageLabel" for="imageInput">Upload Image</label>
+                <input id="imageInput" type="file" accept="image/png, image/jpeg" className="upload__imageInput" onChange={handleImage}></input>
+                {image && <i class="fas fa-check"></i>}
                 <label  className="upload__captionLabel">Caption</label>
-                <textarea className="upload__textarea" onChange ={(e) => setCaption(e.target.value)}></textarea>
-                <button type='submit'>Post</button>
+                <textarea className="upload__textarea" onChange ={( e) => setCaption(e.target.value)}></textarea>
+                <Button type='submit' disabled={!image} variant="contained" color="primary"> Post</Button>
             </form>
-            {isUploading && <progress className="upload__progress" value={progress}  max="100" />}
+            {isUploading && <LinearProgress value={progress} />}
     </div> 
     );
 }

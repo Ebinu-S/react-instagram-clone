@@ -1,7 +1,7 @@
 import {useParams, Link } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import useFetch from './useFetch';
-import {db} from './Firebase';
+import {auth, db} from './Firebase';
 import InputComment from './InputComment.js';
 import { Avatar } from "@material-ui/core";
 
@@ -10,6 +10,7 @@ const PostDetail = () => {
     const [currentPost, setCurrentPost] = useState({});
     const [comments, setComments] = useState([]);
     const {posts} = useFetch();
+    const user = auth.currentUser;
 
     useEffect(() => {
         if(posts[0]){
@@ -38,9 +39,8 @@ const PostDetail = () => {
 
     return ( 
     <div >
-        {/* display selected post in details  */}
         {/* add view in full screen */}
-        {currentPost && (
+        {user ? (currentPost && (
         <span className="detail__container">
             <div className='detail__header'>
                 <Avatar src='static/images/avatar/1.jpg' alt={currentPost.username} />
@@ -57,7 +57,7 @@ const PostDetail = () => {
             <div className='detail__commentContainer'>{comments.map(cmt => (
                 <div>
                     <Avatar src='static/images/avatar/1.jpg' alt={cmt.displayName}/>
-                    <span><strong>{cmt.displayName}</strong>{cmt.text}
+                    <span><strong><Link to={`/profile/${cmt.displayName}`}>{cmt.displayName}</Link></strong>{cmt.text}
                     </span>
                 </div>
                 ))}
@@ -66,6 +66,8 @@ const PostDetail = () => {
             </span>
             </div>
         </span> 
+        )):(
+            <h1>Signup</h1>
         )}
     </div> );
 }

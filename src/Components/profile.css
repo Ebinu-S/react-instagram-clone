@@ -94,6 +94,45 @@
 .profile__mheader span{
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.profile__mheader span button{
+    padding: 0.5rem;
+    margin-right: 10px;
+    border: 0;
+    background-color: transparent;
+    font-size: 1rem;
+    transition: .3s;
+}
+
+.profile__mheader span button:hover{
+    color: tomato;
+}
+
+.profile__mDelete{
+    position: absolute;
+    background-color: #f4f9f4;
+    height: 7rem;
+    width: 16rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    padding: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 0 10px 10px rgba(0,0,0,.3);
+}
+.profile__mDelete span button{
+    margin: 0.4rem 1rem;
+}
+.profile__mDelete h2{
+    font-size: 1.5rem;
+    transform: translateY(-0.4rem);
 }
 
 .profile__mheader h3{
@@ -156,11 +195,29 @@
     margin-right: 5px;
 }
 
+@media (max-width: 1220px) {
+    .profile__posts{
+        padding: 0 2rem;    }  
+    }
+
 @media (max-width: 1110px){
     .profile__modal{
         flex-direction: column ;
         overflow: scroll;
         max-height: max-content;
+    }
+    .profile__posts{
+        padding: 0 1rem;
+    }  
+    
+    .profile__image{
+        width: 291px;
+        height: 333px;
+    }
+ 
+    .profile__obj{
+        width: 291px;
+        height: 333px;
     }
 }
 
@@ -171,7 +228,6 @@
     .profile__image{
         width: 233px;
         height: 266px;
-        object-fit: cover;
     }
 
     .profile__obj{

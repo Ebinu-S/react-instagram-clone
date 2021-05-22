@@ -2,14 +2,18 @@ import {useState} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {Avatar} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
-import {db} from './Firebase';
+import {auth,db} from './Firebase';
 import './profile.css';
 import useFetch from './useFetch.js';
 import InputComment from './InputComment.js';
+import Home from './Home';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
 
 const Profile = () => {
     const {uname} = useParams();
     const [open, setOpen] = useState(false);
+    const [deleteOpen, setDeleteOpen] = useState(false);
     const [caption, setCaption] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [comment, setComment] = useState([]); 
@@ -17,6 +21,7 @@ const Profile = () => {
     const [currentId, setCurrentId] = useState('');
     const {posts} = useFetch();
     const width = window.screen.width;
+    const user = auth.currentUser;
 
     // get user from the username 
     const userPosts = posts.filter(t => t.post.username === uname);
@@ -48,22 +53,31 @@ const Profile = () => {
         setCaption('');
     }
 
-    console.log(userPosts);
+    const handleDelete = () => {
+        db.collection('Posts').doc(currentId).delete().then(() => {
+            console.log('delted');
+            setDeleteOpen(false);
+            setOpen(false);
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 
     return ( 
     <div className="profile__container">
-
+        {user && (
          <div className="profile__header">
              <Avatar alt={uname} src="static/images/avatar/1.jpg" className="profile__avtar"/>
              <div className="profile__details">
                  <h2>{uname}</h2>
-                 <p>This the Bio of this Profile.</p>
+                 <p>This the Bio of {uname}. 😄😘🤩🤗🙂.</p>
              </div>
-         </div>
+         </div>)}
         {/* user userName/ post count /settings icon */}
+        {user ? (
         <div className="profile__posts">
             {userPosts.map(obj => (
-                width > 600? (
+                width > 600 ? (
                     <a  className='profile__obj' onClick={() => handleClick(obj.post.caption, obj.post.imageUrl,obj.id)}>
                         <img src={obj.post.imageUrl} className="profile__image"/>
                     </a>
@@ -72,9 +86,11 @@ const Profile = () => {
                         <img src={obj.post.imageUrl} className="profile__image"/>
                     </Link>
                 )
-            ))}
-        </div>
-
+        ))}
+        </div>):(
+            // not component, go to home
+            <h1>Login / SignUp</h1>
+        )}
         <Modal open={open} onClose={handleClose} className="profile_modalmain">
             <div className='profile__modal'>
               <img src={imgUrl}/>
@@ -82,13 +98,21 @@ const Profile = () => {
                   <div className='profile__mheader'>
                       <span>
                         <Avatar alt={uname} src="static/images/avatar/1.jpg"/>
-                        <h3>{uname}</h3>
+                        <h3><Link to={`/profile/${uname}`} onClick={handleClose}>{uname}</Link></h3>
                       </span>
-                      <Link to={`/postdetail/${currentId}`}><i class="fas fa-expand"></i></Link>
+                      <span>
+                        {user && user.displayName === uname? (
+                                <Tooltip title="Delete this post">
+                                    <button onClick={() => setDeleteOpen(true)}>
+                                    <i class="fas fa-trash-alt"></i></button>
+                                </Tooltip>):('')
+                        }
+                        <Tooltip title="Show in Detail"><Link  to={`/postdetail/${currentId}`}><i class="fas fa-expand"></i></Link></Tooltip>
+                      </span>
                   </div>
                   <div className='profile__mdetails'>
                       <div className="profile_caption">
-                        <Avatar alt={uname} src="static/images/avatar/1.jpg"/> <h4>{uname}</h4> 
+                           <h4><Link to={`/profile/${uname}`} onClick={handleClose}>{uname}</Link></h4> 
                         <p>{caption}</p>
                       </div>
                       {/* comments */}
@@ -104,11 +128,23 @@ const Profile = () => {
                       ))}
                   </div>
                   <InputComment postId={currentId}/>
-                  {/* add comment form */}
               </div>  
             </div>
         </Modal>
 
+        <Modal 
+          open={deleteOpen}
+          onClose={() => setDeleteOpen(false)}>
+              <span className="profile__mDelete">
+                  <h2>Are you sure?</h2>
+                  <span>
+                    <Button variant="contained" color="secondary" onClick={handleDelete}>Yes</Button>
+                    <Button variant="contained" color="primary" onClick={() => setDeleteOpen(false)}>No</Button>
+                  </span>
+              </span>
+        </Modal>
+
+        
     </div> );
 }
  
