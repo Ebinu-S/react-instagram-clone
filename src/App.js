@@ -11,7 +11,6 @@ import Posts from './Components/Posts.js';
 import Profile from './Components/Profile.js';
 import PostDetail from './Components/PostDetail';
 import useFetch from './Components/useFetch';
-import Settings from './Components/Settings.js';
 import Tooltip from '@material-ui/core/Tooltip';
 
 
@@ -23,7 +22,6 @@ function App() {
   const [open, setOpen] = useState(false);
   const [signinOpen, setSigninOpen] = useState(false);
   const [newpostOpen,setNewpostOpen] = useState(false);
-  const [settingsOpen,setSettingsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
@@ -99,10 +97,6 @@ function App() {
     setSigninOpen(false);
   }
 
-  const handleSettings = () => {
-    setSettingsOpen(true);
-  }
-
   const handleLogout = () => {
     auth.signOut();
     //todo usehistory.push('/');
@@ -125,9 +119,6 @@ function App() {
               </Tooltip>
               <Tooltip title={user.displayName} className="tooltip">
                 <Link className='app__btn' to={`/profile/${user.displayName}`}><i class="far fa-user-circle"></i></Link>
-              </Tooltip>
-              <Tooltip title='settings' className="tooltip">
-                <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
               </Tooltip>
               <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
             </span>
@@ -190,13 +181,6 @@ function App() {
             {user && <Upload userName={user.displayName} setNewpostOpen={setNewpostOpen}/>}
           </Modal>
 
-          {/* settings Modal */}
-          <Modal 
-          open={settingsOpen}
-          onClose={() => setSettingsOpen(false)}>
-            <Settings />
-          </Modal>
-
           {/* mobile menu modal */}
           {user && <Modal 
           open={mobileMenuOpen}
@@ -204,7 +188,6 @@ function App() {
             <div className='app__mobileMenu'>
                 <button className='app__btn' onClick={() => {setNewpostOpen(true); console.log('hmm');}}>Add new post</button>     
                 <Link className='app__btn border-top' to={`/profile/${user.displayName}`}>Profile </Link>
-                <button variant='contained' className='app__btn border-top' onClick={handleSettings}>Settings</button>
                 <button variant='contained' className='app__btn btn_bgRed border-top' onClick={handleLogout}>Logout</button>
             </div>
           </Modal>}

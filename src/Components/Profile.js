@@ -7,12 +7,14 @@ import './profile.css';
 import useFetch from './useFetch.js';
 import InputComment from './InputComment.js';
 import Tooltip from '@material-ui/core/Tooltip';
+import Settings from './Settings.js';
 import DeletePost from './DeletePost';
 
 const Profile = () => {
     const {uname} = useParams();
     const [open, setOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
+    const [settingsOpen,setSettingsOpen] = useState(false);
     const [caption, setCaption] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [comment, setComment] = useState([]); 
@@ -49,8 +51,13 @@ const Profile = () => {
         setComments([]);
         setComment('');
         setImgUrl('');
-        setCaption('');
+        setCaption(''); 
     }
+
+    
+  const handleSettings = () => {
+    setSettingsOpen(true);
+  }
 
     return ( 
     <div className="profile__container">
@@ -58,9 +65,15 @@ const Profile = () => {
          <div className="profile__header">
              <Avatar alt={uname} src="static/images/avatar/1.jpg" className="profile__avtar"/>
              <div className="profile__details">
-                 <h2>{uname}</h2>
+                 <span>
+                    <h2>{uname}</h2>
+                    {user && user.displayName === uname? (<Tooltip title='settings' className="tooltip">
+                    <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
+                </Tooltip> ):( '')}
+                 </span>
                  <p>This the Bio of {uname}. 😄😘🤩🤗🙂.</p>
              </div>
+
          </div>)}
         {/* user userName/ post count /settings icon */}
         {user ? (
@@ -95,6 +108,7 @@ const Profile = () => {
                                     <button onClick={() => setDeleteOpen(true)}>
                                     <i class="fas fa-trash-alt"></i></button>
                                 </Tooltip>):('')
+                                
                         }
                         <Tooltip title="Show in Detail"><Link  to={`/postdetail/${currentId}`}><i class="fas fa-expand"></i></Link></Tooltip>
                       </span>
@@ -120,11 +134,19 @@ const Profile = () => {
               </div>  
             </div>
         </Modal>
+
         {/* delete post modal  */}
         <Modal 
           open={deleteOpen}
           onClose={() => setDeleteOpen(false)}>
               <DeletePost currentId={currentId} setOpen={setOpen} setDeleteOpen={setDeleteOpen}/>
+        </Modal>
+
+        {/* settings modal */}
+        <Modal 
+          open={settingsOpen}
+          onClose={() => setSettingsOpen(false)}>
+            <Settings />
         </Modal>
         
     </div> );

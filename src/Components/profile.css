@@ -55,9 +55,17 @@
 .profile__details h2{
     font-family: 'Oleo Script Swash Caps', cursive;
 }
+
+.profile__details span{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .profile_modalmain{
     overflow: scroll;
 }
+
 .profile__modal{
     /* width: 700px; */
     max-height: 700px;

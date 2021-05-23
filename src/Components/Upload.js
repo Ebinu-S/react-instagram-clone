@@ -3,6 +3,7 @@ import {db, storage} from './Firebase';
 import firebase from 'firebase';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
+import Compressor from 'compressorjs';
 
 const Upload = ({userName, modalStyle, setNewpostOpen}) => {
     const [progress, setProgress] = useState(50);
@@ -12,7 +13,14 @@ const Upload = ({userName, modalStyle, setNewpostOpen}) => {
 
     const handleImage = (e) => {;
         if(e.target.files[0]){
-            setImage(e.target.files[0])
+            new Compressor(e.target.files[0], {
+                quality: 0.8,
+                maxHeight: 1600,
+                success : (result) => {
+                    console.log(result, e.target.files[0], 'size:', e.target.files[0].size, result.size );
+                    setImage(result)
+                }
+            })
         }
     }
 
