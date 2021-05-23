@@ -11,8 +11,8 @@ import Posts from './Components/Posts.js';
 import Profile from './Components/Profile.js';
 import PostDetail from './Components/PostDetail';
 import useFetch from './Components/useFetch';
+import Settings from './Components/Settings';
 import Tooltip from '@material-ui/core/Tooltip';
-
 
 function App() {
 
@@ -201,6 +201,9 @@ function App() {
           </Route>
           <Route exact path='/postdetail/:postid'>
             <PostDetail/>
+          </Route>
+          <Route exact path='/settings'>
+            <Settings />
           </Route>
         </Switch>
         

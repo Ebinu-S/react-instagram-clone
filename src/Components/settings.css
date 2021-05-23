@@ -1,0 +1,78 @@
+.settings{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.settings__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    margin-top: 1rem;
+    text-align: left;
+    /* border : 1px solid black; */
+    padding: 1rem 0;
+}
+
+.settings__userDisplay{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.settings__userDisplay span{
+    display: flex;
+    align-items: center;
+}
+
+.mt-2{
+    margin-top: 2rem;
+}
+
+.mb-1{
+    margin-bottom: 1rem;
+}
+
+.mb-2{
+    margin-bottom: 2rem;
+}
+
+.ml-1{
+    margin-left: 1rem;
+}
+
+.w-43 {
+    width: 43vw;
+}
+
+.settings__CuserName h3{
+    margin-bottom: 1rem;
+}
+.settings__CuserName form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.settings__CuserName form input{
+    width: 20rem;
+}
+
+.settings__CuserName form button{
+    margin-left: 1rem;
+}
+
+.settings__Cpassword form{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+.settings_danger span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

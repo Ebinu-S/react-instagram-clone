@@ -14,7 +14,6 @@ const Profile = () => {
     const {uname} = useParams();
     const [open, setOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
-    const [settingsOpen,setSettingsOpen] = useState(false);
     const [caption, setCaption] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [comment, setComment] = useState([]); 
@@ -54,11 +53,6 @@ const Profile = () => {
         setCaption(''); 
     }
 
-    
-  const handleSettings = () => {
-    setSettingsOpen(true);
-  }
-
     return ( 
     <div className="profile__container">
         {user && (
@@ -68,7 +62,7 @@ const Profile = () => {
                  <span>
                     <h2>{uname}</h2>
                     {user && user.displayName === uname? (<Tooltip title='settings' className="tooltip">
-                    <button variant='contained' className='app__btn' onClick={handleSettings}><i class="fas fa-cog"></i></button>
+                    <Link to ={`/settings`}><i class="fas fa-cog"></i></Link>
                 </Tooltip> ):( '')}
                  </span>
                  <p>This the Bio of {uname}. 😄😘🤩🤗🙂.</p>
@@ -142,13 +136,6 @@ const Profile = () => {
               <DeletePost currentId={currentId} setOpen={setOpen} setDeleteOpen={setDeleteOpen}/>
         </Modal>
 
-        {/* settings modal */}
-        <Modal 
-          open={settingsOpen}
-          onClose={() => setSettingsOpen(false)}>
-            <Settings />
-        </Modal>
-        
     </div> );
 }
  

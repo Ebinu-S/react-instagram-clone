@@ -27,6 +27,7 @@ const Upload = ({userName, modalStyle, setNewpostOpen}) => {
     const handleUpload = (e) => {
         e.preventDefault(); 
 
+        // setCaption(caption.replace("\r\n", "\\r\\n"));
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         setIsUploading(true);
         uploadTask.on(
@@ -55,6 +56,8 @@ const Upload = ({userName, modalStyle, setNewpostOpen}) => {
             }
             );
     }
+
+    console.log(caption);
 
     return ( 
     <div className='upload__container'>
