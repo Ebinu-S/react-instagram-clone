@@ -26,10 +26,7 @@ function App() {
   const [userName,setUserName] = useState('');
   const [email,setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isError, setIsError] = useState(false);
-  
-  let errorText = '';
-
+   
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(authUser => {
       if(authUser){
@@ -90,8 +87,6 @@ function App() {
     auth.signInWithEmailAndPassword(email,password).catch(error => {
       //todo add error message handler
       console.log(error);
-      errorText = error.code;
-      setIsError(true);
       alert(error)
     })
     setSigninOpen(false);
@@ -169,7 +164,6 @@ function App() {
                     <input type='password' onChange={(e) => setPassword(e.target.value)}></input>
                     <button>Submit</button>
                   </form>
-                  <p>{errorText}</p>
                 </div></div>
             </div>  
           </Modal>
@@ -178,7 +172,7 @@ function App() {
           <Modal
           open={newpostOpen}
           onClose={() => setNewpostOpen(false)}>
-            {user && <Upload userName={user.displayName} setNewpostOpen={setNewpostOpen}/>}
+            {user && <Upload userName={user.displayName} setNewpostOpen={setNewpostOpen} userId={user.uid}/>}
           </Modal>
 
           {/* mobile menu modal */}
@@ -196,7 +190,7 @@ function App() {
           <Route exact path="/">
             <Posts posts={posts} user={user} setSigninOpen={setSigninOpen} setOpen={setOpen}/>
           </Route>
-          <Route exact path='/profile/:uname'>
+          <Route exact path='/profile/:id'>
             <Profile posts={posts}/>
           </Route>
           <Route exact path='/postdetail/:postid'>

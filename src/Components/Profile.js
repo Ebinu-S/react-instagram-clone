@@ -7,24 +7,27 @@ import './profile.css';
 import useFetch from './useFetch.js';
 import InputComment from './InputComment.js';
 import Tooltip from '@material-ui/core/Tooltip';
-import Settings from './Settings.js';
 import DeletePost from './DeletePost';
 
 const Profile = () => {
-    const {uname} = useParams();
+    const {id} = useParams();
     const [open, setOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [caption, setCaption] = useState('');
-    const [imgUrl, setImgUrl] = useState('');
+    const [imgUrl, setImgUrl] = useState(''); 
     const [comment, setComment] = useState([]); 
     const [comments, setComments] = useState([]); 
     const [currentId, setCurrentId] = useState('');
     const {posts} = useFetch();
     const width = window.screen.width;
     const user = auth.currentUser;
+    const profilePic = user && user.photoURL ? user.photoURL : 'static/images/avatar/1.jpg';
+    
+    //find a way to get username from uid
+    let uname = 'myre'
 
     // get user from the username 
-    const userPosts = posts.filter(t => t.post.username === uname);
+    const userPosts = posts.filter(t => t.post.uid === id);
 
     const handleClick = (caption,url,id) => {
         setOpen(true);
@@ -35,7 +38,7 @@ const Profile = () => {
     };
 
     const getComments = (id) => {
-        db.collection('Posts').doc(id).collection("Comments").orderBy('timestamp','asc')
+        db.collection('posts').doc(id).collection("Comments").orderBy('timestamp','asc')
         .onSnapshot(snap => {
             setComments(
                 snap.docs.map(doc => (
@@ -51,17 +54,17 @@ const Profile = () => {
         setComment('');
         setImgUrl('');
         setCaption(''); 
-    }
+    };
 
     return ( 
     <div className="profile__container">
         {user && (
          <div className="profile__header">
-             <Avatar alt={uname} src="static/images/avatar/1.jpg" className="profile__avtar"/>
+             <Avatar alt={uname} src={profilePic} className="profile__avtar"/>
              <div className="profile__details">
                  <span>
                     <h2>{uname}</h2>
-                    {user && user.displayName === uname? (<Tooltip title='settings' className="tooltip">
+                    {user && user.uid === id? (<Tooltip title='settings' className="tooltip">
                     <Link to ={`/settings`}><i class="fas fa-cog"></i></Link>
                 </Tooltip> ):( '')}
                  </span>
@@ -97,7 +100,7 @@ const Profile = () => {
                         <h3><Link to={`/profile/${uname}`} onClick={handleClose}>{uname}</Link></h3>
                       </span>
                       <span>
-                        {user && user.displayName === uname? (
+                        {user && user.uid === id? (
                                 <Tooltip title="Delete this post">
                                     <button onClick={() => setDeleteOpen(true)}>
                                     <i class="fas fa-trash-alt"></i></button>
@@ -109,22 +112,26 @@ const Profile = () => {
                   </div>
                   <div className='profile__mdetails'>
                       <div className="profile_caption">
-                           <h4><Link to={`/profile/${uname}`} onClick={handleClose}>{uname}</Link></h4> 
-                        <p>{caption}</p>
+                           <h4><Link to={`/profile/${id}`} onClick={handleClose}>{uname}</Link></h4> 
+                        <p>{caption}</p><p>I am commenting to verify that this comment does not overflow the screen. I hope it odesnot overflow and should i use word wrap. if not then what ? Think I should make usure that my width and all are correct id if it spans this width it should go to next Line</p>
                       </div>
                       {/* comments */}
-                      {comments.map(cmt => (
-                          <div className="profile_mComment">
-                              <div className="profile__mComment_detail">
-                                  <Avatar alt={cmt.displayName} src="static/images/avatar/1.jpg" className="profile__mCommentAvatar"/>
-                                  <span>
-                                      <strong><Link to={`/profile/${cmt.displayName}`} onClick={handleClose}>{cmt.displayName}</Link></strong>{cmt.text}
-                                  </span>
-                              </div>    
-                          </div>
-                      ))}
+                      <div className='profile_allcomments'>
+                        {comments.map(cmt => (
+                            <div className="profile_mComment">
+                                <div className="profile__mComment_detail">
+                                    <Avatar alt={cmt.displayName} src="static/images/avatar/1.jpg" className="profile__mCommentAvatar"/>
+                                    <span>
+                                        <strong><Link to={`/profile/${cmt.uid}`} onClick={handleClose}>{cmt.displayName}</Link></strong>{cmt.text}
+                                    </span>
+                                </div>    
+                            </div>
+                        ))}
+                      </div>
+                  <div className='Profile__iComment'>
+                      <InputComment postId={currentId}/>
                   </div>
-                  <InputComment postId={currentId}/>
+                  </div>
               </div>  
             </div>
         </Modal>

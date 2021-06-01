@@ -203,6 +203,31 @@
     margin-right: 5px;
 }
 
+.profile_allcomments{
+    max-height: 450px;
+    overflow: scroll;
+}
+
+.profile_allcomments::-webkit-scrollbar{
+    display: none;
+}
+
+.Profile__iComment{
+    width: 100%;
+    height: 4rem;
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+}
+.Profile__iComment .input__commentform {
+    box-shadow: 10px -1px 3px 2px rgba(0,0,0,.1);
+    width: 400px;
+}
+
+.Profile__iComment .input__commentform input{
+    width: 90%;
+}
+
 @media (max-width: 1220px) {
     .profile__posts{
         padding: 0 2rem;    }  

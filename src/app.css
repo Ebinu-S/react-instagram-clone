@@ -26,6 +26,32 @@ footer a{
     text-decoration: underline;
 }
 
+
+.mt-1{
+    margin-top: 1rem !important;
+}
+
+.mt-2{
+    margin-top: 2rem !important;
+}
+
+.mb-1{
+    margin-bottom: 1rem !important;
+}
+
+.mb-2{
+    margin-bottom: 2rem !important;
+}
+
+.ml-1{
+    margin-left: 1rem !important;
+}
+
+.w-43 {
+    width: 43vw !important;
+}
+
+
 .tooltip{
     padding: 10px;
 }

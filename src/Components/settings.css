@@ -24,29 +24,9 @@
     padding: 1rem;
 }
 
-.settings__userDisplay span{
+.settings__userDisplay a{
     display: flex;
     align-items: center;
-}
-
-.mt-2{
-    margin-top: 2rem;
-}
-
-.mb-1{
-    margin-bottom: 1rem;
-}
-
-.mb-2{
-    margin-bottom: 2rem;
-}
-
-.ml-1{
-    margin-left: 1rem;
-}
-
-.w-43 {
-    width: 43vw;
 }
 
 .settings__CuserName h3{
@@ -74,5 +54,20 @@
 .settings_danger span{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center ;
+}
+
+.settings__Cbio form textarea{
+    width: 100%;
+    height: 7rem;
+    resize: none;
+    padding: 1rem;
+    font: inherit;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.settings__Cbio form textarea:focus{
+    outline: 0;
+    border: 2px solid #6f7cc7;
 }

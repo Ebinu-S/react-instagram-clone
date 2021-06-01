@@ -7,8 +7,7 @@ import InputComment from './InputComment.js';
 const Post = ({imgUrl, id, caption, userName, user}) => {
 
     const [comments,setComments] = useState([]);
-    let cmtLength = 0;
-
+    
     useEffect(() => {
         let unsubscribe;
         if(id){
