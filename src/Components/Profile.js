@@ -24,7 +24,7 @@ const Profile = () => {
     const profilePic = user && user.photoURL ? user.photoURL : 'static/images/avatar/1.jpg';
     
     //find a way to get username from uid
-    let uname = 'myre'
+    let uname = ''
 
     // get user from the username 
     const userPosts = posts.filter(t => t.post.uid === id);
