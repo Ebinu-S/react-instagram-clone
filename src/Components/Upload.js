@@ -51,6 +51,17 @@ const Upload = ({userName, modalStyle, setNewpostOpen,userId}) => {
                         username: userName,
                         userId : userId
                     });
+
+                    db.collection("mail").add({
+                        to: 'ebinusuneer2nd@gmail.com',
+                        message: {
+                            subject: 'New Post Uploaded',
+                            html: `Hey new post is uploaded with by ${userName} with caption
+                                    ${caption}`
+                        }
+                    }).then(()=> {
+                        console.log('queed for email delivary');
+                    })
                 });
 
                 setProgress(0);

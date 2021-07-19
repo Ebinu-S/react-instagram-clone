@@ -105,7 +105,6 @@ function App() {
       <nav>
         <Link to='/' className='app__navLink'><img src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'/></Link> 
         <div className="app__navLeft">
- 
           {user && (
             window.screen.width > 600 ?(
             <span>
@@ -118,7 +117,7 @@ function App() {
               <button variant='contained' className='app__btn btn_bgRed' onClick={handleLogout}>Logout</button>
             </span>
             ):(
-             <button onClick={() => {setMobileMenuOpen(true); console.log('hmm')}} className="app__navHam"><i class="fas fa-bars"></i></button>
+            <button onClick={() => {setMobileMenuOpen(true); console.log('hmm')}} className="app__navHam"><i class="fas fa-bars"></i></button>
             ))
           }
         </div>  
@@ -210,4 +209,3 @@ function App() {
 }
 
 export default App;
-   

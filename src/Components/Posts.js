@@ -11,7 +11,7 @@ const Posts = ({user, posts, setSigninOpen, setOpen}) => {
             )
             }
         </div>
-     );
+    );
 }
- 
+
 export default Posts;
